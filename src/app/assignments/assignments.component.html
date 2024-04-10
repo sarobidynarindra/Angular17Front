@@ -12,11 +12,7 @@
     Page courante : {{ page }}, nb de docs par page : {{ limit }}
     <!-- add slider for adjusting the limit property, with angular 17 -->
     <mat-slider min="1" max="100" step="1" thumbLabel>
-      <input
-        matSliderThumb
-        [(ngModel)]="limit"
-        (change)="getAssignmentsFromService()"
-      />
+      <input matSliderThumb [(ngModel)]="limit" (change)="getAssignmentsFromService()" />
     </mat-slider>
   </p>
 
@@ -38,62 +34,30 @@
   <h1>Avec data table</h1>
 
   <div>
-    <button
-      mat-raised-button
-      color="primary"
-      [disabled]="!hasPrevPage"
-      [disabled]="!hasPrevPage"
-      (click)="premierePage()"
-    >
+    <button mat-raised-button color="primary" [disabled]="!hasPrevPage" [disabled]="!hasPrevPage"
+      (click)="premierePage()">
       Première
     </button>
     &nbsp;&nbsp;&nbsp;
-    <button
-      mat-raised-button
-      color="primary"
-      [disabled]="!hasPrevPage"
-      (click)="pagePrecedente()"
-    >
+    <button mat-raised-button color="primary" [disabled]="!hasPrevPage" (click)="pagePrecedente()">
       Précédent
     </button>
     &nbsp;&nbsp;&nbsp;
-    <button
-      mat-raised-button
-      color="primary"
-      [disabled]="!hasNextPage"
-      (click)="pageSuivante()"
-    >
+    <button mat-raised-button color="primary" [disabled]="!hasNextPage" (click)="pageSuivante()">
       Suivante
     </button>
     &nbsp;&nbsp;&nbsp;
-    <button
-      mat-raised-button
-      color="primary"
-      [disabled]="!hasNextPage"
-      (click)="dernierePage()"
-    >
+    <button mat-raised-button color="primary" [disabled]="!hasNextPage" (click)="dernierePage()">
       Dernière
     </button>
   </div>
 
-  <mat-paginator
-    #paginator
-    class="demo-paginator"
-    (page)="handlePageEvent($event)"
-    [length]="totalPages"
-    [pageSize]="limit"
-    [showFirstLastButtons]="true"
-    [pageSizeOptions]="[5, 10, 25]"
-    [pageIndex]="page"
-    aria-label="Select page"
-  >
+  <mat-paginator #paginator class="demo-paginator" (page)="handlePageEvent($event)" [length]="totalPages"
+    [pageSize]="limit" [showFirstLastButtons]="true" [pageSizeOptions]="[5, 10, 25]" [pageIndex]="page"
+    aria-label="Select page">
   </mat-paginator>
 
-  <table
-    mat-table
-    [dataSource]="assignments"
-    class="mat-elevation-z8 demo-table"
-  >
+  <table mat-table [dataSource]="assignments" class="mat-elevation-z8 demo-table">
     <!-- Nom Column -->
     <ng-container matColumnDef="nom">
       <th mat-header-cell *matHeaderCellDef>Nom</th>
@@ -125,10 +89,7 @@
       <nav>
         <a routerLink="/assignment/{{ a._id }}">
           <div>
-            <h3
-              matListItemTitle
-              [ngStyle]="{ color: a.rendu ? 'green' : 'red' }"
-            >
+            <h3 matListItemTitle [ngStyle]="{ color: a.rendu ? 'green' : 'red' }">
               {{ a.nom }}
             </h3>
             <p matListItemLine>{{ a.dateDeRendu | date }}</p>

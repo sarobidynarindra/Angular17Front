@@ -4,11 +4,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import {provideNativeDateAdapter} from '@angular/material/core';
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 import { Assignment } from '../assignment.model';
 import { AssignmentsService } from '../../shared/assignments.service';
 import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-add-assignment',
@@ -30,10 +31,10 @@ export class AddAssignmentComponent {
   dateDeRendu = undefined;
 
   constructor(private assignmentsService: AssignmentsService,
-              private router:Router) {}
+    private router: Router) { }
 
   onSubmit(event: any) {
-    if((this.nomAssignment == '') || (this.dateDeRendu === undefined)) return;
+    if ((this.nomAssignment == '') || (this.dateDeRendu === undefined)) return;
 
     // on crée un nouvel assignment
     let nouvelAssignment = new Assignment();
@@ -49,8 +50,8 @@ export class AddAssignmentComponent {
       .addAssignment(nouvelAssignment)
       .subscribe((reponse) => {
         console.log(reponse);
-       // On navigue pour afficher la liste des assignments
-       // en utilisant le router de manière programmatique
+        // On navigue pour afficher la liste des assignments
+        // en utilisant le router de manière programmatique
         this.router.navigate(['/home']);
       });
   }

@@ -19,6 +19,7 @@ import { AddAssignmentComponent } from './add-assignment/add-assignment.componen
 import { AssignmentsService } from '../shared/assignments.service';
 import { RouterLink } from '@angular/router';
 import { filter, map, pairwise, tap, throttleTime } from 'rxjs/operators';
+
 @Component({
   selector: 'app-assignments',
   standalone: true,
@@ -63,7 +64,7 @@ export class AssignmentsComponent implements OnInit {
 
   // ici on injecte le service
   constructor(private assignmentsService: AssignmentsService,
-    private ngZone: NgZone) {}
+    private ngZone: NgZone) { }
 
   getColor(a: any) {
     return a.rendu ? 'green' : 'red';
@@ -103,15 +104,15 @@ export class AssignmentsComponent implements OnInit {
         // On ne rentre que si on scrolle vers le bas, que si
         // la distance de la scrollbar est < 100 pixels et que
         // toutes les 200 ms
-          console.log('On demande de nouveaux assignments');
-          // on va faire une requête pour demander les assignments suivants
-          // et on va concatener le resultat au tableau des assignments courants
-          console.log('je CHARGE DE NOUVELLES DONNEES page = ' + this.page);
-          this.ngZone.run(() => {
-            if (!this.hasNextPage) return;
-            this.page = this.nextPage;
-            this.getAssignmentsFromServicePourScrollInfini();
-          });
+        console.log('On demande de nouveaux assignments');
+        // on va faire une requête pour demander les assignments suivants
+        // et on va concatener le resultat au tableau des assignments courants
+        console.log('je CHARGE DE NOUVELLES DONNEES page = ' + this.page);
+        this.ngZone.run(() => {
+          if (!this.hasNextPage) return;
+          this.page = this.nextPage;
+          this.getAssignmentsFromServicePourScrollInfini();
+        });
       });
   }
 
