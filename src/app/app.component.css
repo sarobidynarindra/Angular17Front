@@ -1,0 +1,19 @@
+.container {
+    height: 90%;
+}
+
+.drawer {
+    background-color: #3f51b5;
+    width: 200px;
+    height: 100%; /* Hauteur initiale */
+}
+
+@media (max-width: 768px) {
+    .drawer {
+        width: 100%;
+    }
+}
+
+.burger {
+    color: white;
+}

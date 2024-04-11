@@ -1,15 +1,27 @@
 <mat-toolbar color="primary">
+  <button (click)="drawer.toggle()" mat-icon-button class="burger">
+    <mat-icon>menu</mat-icon>
+  </button>
   <span>gestion des assignments</span>
 </mat-toolbar>
-<h1>
+
+<mat-drawer-container class="container" hasBackdrop="false">
+  <mat-drawer #drawer class="drawer" mode="push">
+    
+  </mat-drawer>
+  <mat-drawer-content>
+    <h1>
   <nav>
     <a routerLink="/home">{{title}}</a>
   </nav>
 </h1>
 <mat-slide-toggle (click)="login()" color="primary">Login</mat-slide-toggle>
 <button mat-button (click)="genererDonneesDeTest()">Peupler BD</button>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>
 
-<router-outlet></router-outlet>
-<!--
-<app-assignments></app-assignments>
--->
+
+
+
+<!-- <app-assignments></app-assignments> -->
