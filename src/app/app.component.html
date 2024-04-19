@@ -1,23 +1,31 @@
 <mat-toolbar color="primary">
-  <button (click)="drawer.toggle()" mat-icon-button class="burger">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span>gestion des assignments</span>
+  <mat-toolbar-row> 
+    <button (click)="drawer.toggle()" mat-icon-button class="burger">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>{{title}}</span > 
+      <span class="example-spacer"></span>
+      <button mat-flat-button color="accent" routerLink="/login">Login</button>
+      
+    </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-drawer-container class="container" hasBackdrop="false">
   <mat-drawer #drawer class="drawer" mode="push">
-    
+    <mat-nav-list class="item" style="color: aliceblue;">
+      <a mat-list-item routerLink="/home">Acceuil</a>
+      <a mat-list-item routerLink="/login">Login</a>
+    </mat-nav-list>
   </mat-drawer>
   <mat-drawer-content>
-    <h1>
-  <nav>
-    <a routerLink="/home">{{title}}</a>
-  </nav>
-</h1>
-<mat-slide-toggle (click)="login()" color="primary">Login</mat-slide-toggle>
-<button mat-button (click)="genererDonneesDeTest()">Peupler BD</button>
-    <router-outlet></router-outlet>
+    <!-- <h1>
+      <nav>
+        <a routerLink="/home">{{title}}</a>
+      </nav>
+    </h1> -->
+    <!-- <mat-slide-toggle (click)="login()" color="primary">Login</mat-slide-toggle>
+    <button mat-button (click)="genererDonneesDeTest()">Peupler BD</button> -->
+<router-outlet></router-outlet>  
   </mat-drawer-content>
 </mat-drawer-container>
 

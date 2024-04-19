@@ -3,7 +3,7 @@
 }
 
 .drawer {
-    background-color: #3f51b5;
+    background-color:#3f51b5;
     width: 200px;
     height: 100%; /* Hauteur initiale */
 }
@@ -17,3 +17,19 @@
 .burger {
     color: white;
 }
+.example-spacer {
+    flex: 1 1 auto;
+  }
+  
+.item a {
+    text-align: center;
+    color: white; /* Couleur du texte des liens */
+    text-decoration: none; /* Pas de soulignement sur les liens */
+    display: block; /* Les liens occupent toute la largeur */
+    padding: 10px; /* Espacement intérieur des liens */
+  }
+  
+  .item a:hover {
+    background-color: #e0e0e0; /* Couleur de fond au survol */
+  }
+
