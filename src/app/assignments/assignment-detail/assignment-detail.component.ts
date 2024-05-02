@@ -10,11 +10,14 @@ import { AssignmentsService } from '../../shared/assignments.service';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../shared/auth.service';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+
 @Component({
   selector: 'app-assignment-detail',
   standalone: true,
   imports: [CommonModule, RouterLink,
-    MatButtonModule, MatCardModule, MatCheckboxModule, MatToolbarModule],
+    MatButtonModule, MatCardModule, MatCheckboxModule, MatToolbarModule, MatSidenavModule, MatIconModule],
   templateUrl: './assignment-detail.component.html',
   styleUrl: './assignment-detail.component.css'
 })
