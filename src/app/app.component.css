@@ -32,4 +32,6 @@
   .item a:hover {
     background-color: #e0e0e0; /* Couleur de fond au survol */
   }
-
+.boutondeconnexion {
+    margin-left: 20px;
+}

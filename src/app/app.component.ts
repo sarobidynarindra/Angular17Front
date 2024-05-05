@@ -29,7 +29,7 @@ export class AppComponent {
     private assignmentsService: AssignmentsService,
     private router: Router) { }
 
-  login() {
+  /*login() {
     // on utilise le service d'autentification
     // pour se connecter ou se déconnecter
     if (!this.authService.loggedIn) {
@@ -39,7 +39,7 @@ export class AppComponent {
       // on navigue vers la page d'accueil
       this.router.navigate(['/home']);
     }
-  }
+  }*/
 
   genererDonneesDeTest() {
     // on utilise le service
@@ -55,5 +55,17 @@ export class AppComponent {
         // On devrait pouvoir le faire avec le router, jussqu'à la version 16 ça fonctionnait avec
         // this.router.navigate(['/home'], {replaceUrl:true});
       });
+  }
+
+  deconnexion(): void {
+    this.authService.logout().subscribe(
+      (response: any) => {
+        console.log('Déconnexion réussie');
+        this.router.navigate(['/home']);
+      },
+      (error: any) => {
+        console.error('Erreur lors de la déconnexion : ', error);
+      }
+    );
   }
 }
