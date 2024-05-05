@@ -24,7 +24,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './edit-assignment.component.css',
 })
 export class EditAssignmentComponent implements OnInit {
-  assignment: Assignment | undefined;
+  assignment?: Assignment;
   // Pour les champs de formulaire
   nomAssignment = '';
   dateDeRendu?: Date = undefined;
@@ -33,20 +33,21 @@ export class EditAssignmentComponent implements OnInit {
     private assignmentsService: AssignmentsService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit() {
     // on récupère l'id dans l'url
-    const id = +this.route.snapshot.params['id'];
+    const id = this.route.snapshot.params['id'];
+    console.log(id);
     this.assignmentsService.getAssignment(id)
-    .subscribe((assignment) => {
-      this.assignment = assignment;
-      // on met à jour les champs du formulaire
-      if (assignment !== undefined) {
-        this.nomAssignment = assignment.nom;
-        this.dateDeRendu = assignment.dateDeRendu;
-      }
-    });
+      .subscribe((assignment) => {
+        this.assignment = assignment;
+        // on met à jour les champs du formulaire
+        if (assignment !== undefined) {
+          this.nomAssignment = assignment.nom;
+          this.dateDeRendu = assignment.dateDeRendu;
+        }
+      });
   }
 
   onSaveAssignment() {
@@ -54,6 +55,7 @@ export class EditAssignmentComponent implements OnInit {
     if (this.nomAssignment == '' || this.dateDeRendu === undefined) return;
 
     // on récupère les valeurs dans le formulaire
+    this.assignment._id = this.route.snapshot.params['id'];
     this.assignment.nom = this.nomAssignment;
     this.assignment.dateDeRendu = this.dateDeRendu;
     this.assignmentsService
