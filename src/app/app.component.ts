@@ -11,7 +11,7 @@ import { AssignmentsService } from './shared/assignments.service';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-root',
@@ -27,7 +27,8 @@ export class AppComponent {
 
   constructor(private authService: AuthService,
     private assignmentsService: AssignmentsService,
-    private router: Router) { }
+    private router: Router,
+    private snackBar: MatSnackBar) { }
 
   /*login() {
     // on utilise le service d'autentification
@@ -60,7 +61,11 @@ export class AppComponent {
   deconnexion(): void {
     this.authService.logout().subscribe(
       (response: any) => {
-        console.log('Déconnexion réussie');
+        const snackBarRef = this.snackBar.open('Déconnexion réussie.', 'Fermer', {
+          duration: 3000, 
+          verticalPosition: 'top',
+          horizontalPosition: 'end'
+        });
         this.router.navigate(['/home']);
       },
       (error: any) => {

@@ -7,6 +7,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../shared/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -24,7 +26,7 @@ export class LoginComponent {
   loginSuccessMessage: string = '';
   loginErrorMessage: string = '';
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,private snackBar: MatSnackBar,private router: Router) { }
 
   login(): void {
     const formData = {
@@ -37,7 +39,13 @@ export class LoginComponent {
       (response: any) => {
         console.log('Réponse du serveur : ', response);
         if (response) {
-          this.loginSuccessMessage = 'Connexion réussie.';
+          const snackBarRef = this.snackBar.open('Connexion réussie.', 'Fermer', {
+            duration: 3000, 
+            verticalPosition: 'top', 
+            horizontalPosition: 'end'
+          });
+  
+          this.router.navigate(['/home']); 
           this.loginErrorMessage = '';
         } else {
           this.loginSuccessMessage = '';
