@@ -32,10 +32,9 @@ export class LoginComponent {
       password: this.password
     };
 
-
     console.log('formData: ', formData);
     this.authService.login(formData).subscribe(
-      (response:any) => {
+      (response: any) => {
         console.log('Réponse du serveur : ', response);
         if (response) {
           this.loginSuccessMessage = 'Connexion réussie.';
@@ -45,11 +44,15 @@ export class LoginComponent {
           this.loginErrorMessage = 'Erreur lors de la connexion. Veuillez vérifier vos identifiants.';
         }
       },
-      (error:any) => {
+      (error: any) => {
         console.error('Erreur lors de la connexion : ', error);
         this.loginSuccessMessage = '';
         this.loginErrorMessage = 'Erreur lors de la connexion.';
       }
     );
+
   }
+  isAuthenticated(): boolean {
+    return this.authService.getIsAuthenticated();
   }
+}

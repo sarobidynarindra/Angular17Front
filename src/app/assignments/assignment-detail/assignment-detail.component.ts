@@ -12,6 +12,7 @@ import { AuthService } from '../../shared/auth.service';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-assignment-detail',
@@ -30,28 +31,24 @@ export class AssignmentDetailComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    // Recuperation des query params (ce qui suit le ? dans l'url)
+    localStorage.getItem('isAuthenticated');
     console.log(this.route.snapshot.queryParams);
-    // Recuperation des fragment (ce qui suit le # dans l'url)
     console.log(this.route.snapshot.fragment);
-
-    // On recupere l'id de l'assignment dans l'URL à l'aide de ActivatedRoute
     const id = this.route.snapshot.params['id'];
-    // On utilise le service pour récupérer l'assignment avec cet id
     this.assignmentsService.getAssignment(id)
       .subscribe(assignment => {
         this.assignmentTransmis = assignment;
       });
+    console.log("admin sa tsy " + this.isAuthenticated());
+
   }
 
   onAssignmentRendu() {
-    // on a cliqué sur la checkbox, on change le statut de l'assignment
     if (this.assignmentTransmis) {
       this.assignmentTransmis.rendu = true;
       this.assignmentsService.updateAssignment(this.assignmentTransmis)
         .subscribe(message => {
           console.log(message);
-          // on navigue vers la liste des assignments
           this.router.navigate(['/home']);
         });
     }
@@ -70,8 +67,7 @@ export class AssignmentDetailComponent implements OnInit {
         });
     }
   }
-
-  isAdmin() {
-    return this.authService.isLoggedIn();
+  isAuthenticated(): boolean {
+    return this.authService.getIsAuthenticated();
   }
 }

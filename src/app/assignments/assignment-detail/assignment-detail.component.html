@@ -1,4 +1,3 @@
-
 @if(assignmentTransmis) {
 <h2>Détail de l'assignment:</h2>
 
@@ -13,17 +12,16 @@
     @if(!assignmentTransmis.rendu) {
     <mat-checkbox (click)="onAssignmentRendu()">Rendu</mat-checkbox>
     }
-    <button mat-raised-button color="warn" (click)="onDelete()" [disabled]="!isAdmin()">
+    <button mat-raised-button color="warn" (click)="onDelete()" [disabled]="!isAuthenticated()">
       DELETE
     </button>
     <nav>
       <a routerLink="edit">
-        <button mat-raised-button color="primary" [disabled]="!isAdmin()">
+        <button mat-raised-button color="primary" [disabled]="!isAuthenticated()">
           EDIT
         </button>
       </a>
     </nav>
   </mat-card-actions>
 </mat-card>
-
 }
