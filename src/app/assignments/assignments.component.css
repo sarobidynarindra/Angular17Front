@@ -41,3 +41,51 @@ table, tr, td {
 .example-item {
   height: 50px;
 }
+.example-card {
+  max-width: 360px;
+  border-top-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      border-radius: 8px; 
+      display: flex;
+      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); 
+  transition: box-shadow 0.3s ease; /* Transition douce pour l'effet de survol */
+}
+
+.example-header-image-round {
+  width: 64px; 
+  height: 64px; 
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 10px; 
+}
+
+.example-header-image-round img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+}
+.example-header-image-round img:hover {
+  transform: scale(1.05); 
+}
+.example-header-image-round-right {
+  float: right;
+  width: 64px; 
+  height: 64px; 
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 16px;
+  margin-left: auto;
+}
+.example-header-image-round-right img:hover {
+  transform: scale(1.05); 
+}
+.example-header-image-round-right img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+}
+.imageMatiere:hover {
+  transform: scale(1.03); 
+}

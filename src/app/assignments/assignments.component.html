@@ -1,9 +1,5 @@
 <div class="container">
-  <div class="btnAjout">
-    <a routerLink="/add">
-      <button mat-flat-button color="accent">Ajouter Assignment</button>
-    </a>
-  </div>
+  
 
   <h2>{{ titre }}</h2>
   <p>
@@ -16,7 +12,7 @@
     </mat-slider>
   </p>
 
-  <h2>Version avec scrolling infini</h2>
+  <!-- <h2>Version avec scrolling infini</h2>
   <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" #scroller>
     <mat-list *cdkVirtualFor="let a of assignments" class="example-item">
       <a routerLink="/assignments/{{ a._id }}">
@@ -29,9 +25,40 @@
         <mat-divider></mat-divider>
       </a>
     </mat-list>
-  </cdk-virtual-scroll-viewport>
+  </cdk-virtual-scroll-viewport> -->
 
-  <h1>Avec data table</h1>
+  <!-- <h1>Avec data table</h1> -->
+  @for(a of assignments; track a.nom) {
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image-round">
+        <img src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Nom de l'image">
+      </div>
+      <mat-card-title>Shiba Inu</mat-card-title>
+      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+      <div class="example-header-image-round-right">
+        <img src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Nom de l'image">
+      </div>
+    </mat-card-header>
+    <img mat-card-image class="imageMatiere" src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+    <mat-card-content>
+      <p> 
+      </p>
+      @if(a.rendu) {
+        <mat-card-title>{{ a.nom }}</mat-card-title>
+        <mat-card-subtitle>{{ a.dateDeRendu|date }}</mat-card-subtitle>
+        {{ a.rendu }}
+      } @else {
+        {{ a.nom }} NON RENDU !!!!
+        
+      }
+      
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-flat-button color="primary" routerLink="/assignment/{{ a._id }}">Voir détails</button>
+    </mat-card-actions>
+  </mat-card>
+}
 
   <div>
     <button mat-raised-button color="primary" [disabled]="!hasPrevPage" [disabled]="!hasPrevPage"
@@ -52,25 +79,25 @@
     </button>
   </div>
 
-  <mat-paginator #paginator class="demo-paginator" (page)="handlePageEvent($event)" [length]="totalPages"
+  <!-- <mat-paginator #paginator class="demo-paginator" (page)="handlePageEvent($event)" [length]="totalPages"
     [pageSize]="limit" [showFirstLastButtons]="true" [pageSizeOptions]="[5, 10, 25]" [pageIndex]="page"
     aria-label="Select page">
-  </mat-paginator>
+  </mat-paginator> -->
 
-  <table mat-table [dataSource]="assignments" class="mat-elevation-z8 demo-table">
-    <!-- Nom Column -->
+  <!-- <table mat-table [dataSource]="assignments" class="mat-elevation-z8 demo-table">
+    
     <ng-container matColumnDef="nom">
       <th mat-header-cell *matHeaderCellDef>Nom</th>
       <td mat-cell *matCellDef="let a">{{ a.nom }}</td>
     </ng-container>
 
-    <!-- dateDeRendu Column -->
+    
     <ng-container matColumnDef="dateDeRendu">
       <th mat-header-cell *matHeaderCellDef>Date de rendu</th>
       <td mat-cell *matCellDef="let a">{{ a.dateDeRendu | date }}</td>
     </ng-container>
 
-    <!-- rendu Column -->
+    
     <ng-container matColumnDef="rendu">
       <th mat-header-cell *matHeaderCellDef>Rendu</th>
       <td mat-cell *matCellDef="let a">{{ a.rendu }}</td>
@@ -78,10 +105,10 @@
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
+  </table> -->
 
 
-  <h1>Version avec ul / li et for</h1>
+  <!-- <h1>Version avec ul / li et for</h1>
   <mat-divider></mat-divider>
   <mat-list>
     @for(a of assignments; track a.nom) {
@@ -99,7 +126,7 @@
     </mat-list-item>
     <mat-divider></mat-divider>
     }
-  </mat-list>
+  </mat-list> -->
 </div>
 
 <!--

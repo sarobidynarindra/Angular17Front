@@ -5,7 +5,9 @@
     </button>
     <span>{{title}}</span > 
       <span class="example-spacer"></span>
-      <button mat-flat-button color="accent" routerLink="/login">Login</button>
+      <button mat-button (click)="genererDonneesDeTest()">Peupler BD</button>
+      <button mat-button routerLink="/add">Ajouter Assignment</button>
+      <button mat-button routerLink="/login">Login</button>
       <button class="boutondeconnexion" mat-flat-button color="accent" (click)="deconnexion()">Déconnexion</button>
     </mat-toolbar-row>
 </mat-toolbar>
@@ -24,7 +26,7 @@
       </nav>
     </h1> -->
     <!-- <mat-slide-toggle (click)="login()" color="primary">Login</mat-slide-toggle>
-    <button mat-button (click)="genererDonneesDeTest()">Peupler BD</button> -->
+     -->
 <router-outlet></router-outlet>  
   </mat-drawer-content>
 </mat-drawer-container>
