@@ -1,18 +1,20 @@
-table, tr, td {
+table,
+tr,
+td {
   border: 1px solid black;
   border-collapse: collapse;
   padding: 20px;
 }
 
 .rendu {
-  color:green;
+  color: green;
 }
 
 .nonRendu {
-  color:red;
+  color: red;
   background-color: yellow;
-  border:2px dashed purple;
-  padding:5px;
+  border: 2px dashed purple;
+  padding: 5px;
 }
 
 .container {
@@ -41,51 +43,72 @@ table, tr, td {
 .example-item {
   height: 50px;
 }
+
 .example-card {
   max-width: 360px;
   border-top-left-radius: 20px;
-      border-bottom-right-radius: 20px;
-      margin-top: 10px;
-      margin-bottom: 20px;
-      border-radius: 8px; 
-      display: flex;
-      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); 
-  transition: box-shadow 0.3s ease; /* Transition douce pour l'effet de survol */
+  border-bottom-right-radius: 20px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  display: flex;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease;
+  /* Transition douce pour l'effet de survol */
 }
 
 .example-header-image-round {
-  width: 64px; 
-  height: 64px; 
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   overflow: hidden;
-  margin-right: 10px; 
+  margin-right: 10px;
 }
 
 .example-header-image-round img {
   width: 100%;
   height: 100%;
-  object-fit: cover; 
+  object-fit: cover;
 }
+
 .example-header-image-round img:hover {
-  transform: scale(1.05); 
+  transform: scale(1.05);
 }
+
 .example-header-image-round-right {
   float: right;
-  width: 64px; 
-  height: 64px; 
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   overflow: hidden;
   margin-right: 16px;
   margin-left: auto;
 }
+
 .example-header-image-round-right img:hover {
-  transform: scale(1.05); 
+  transform: scale(1.05);
 }
+
 .example-header-image-round-right img {
   width: 100%;
   height: 100%;
-  object-fit: cover; 
+  object-fit: cover;
 }
+
 .imageMatiere:hover {
-  transform: scale(1.03); 
+  transform: scale(1.03);
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 90px;
+  /* Espace entre les cartes */
+}
+
+.example-card {
+  flex: 1 1 calc(25% - 16px);
+  /* 4 cartes par ligne */
+  box-sizing: border-box;
 }
