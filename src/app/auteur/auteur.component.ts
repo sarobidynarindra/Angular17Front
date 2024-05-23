@@ -46,7 +46,7 @@ export class AuteurComponent {
       (response: any) => {
         console.log('Réponse du serveur : ', response);
         const snackBarRef = this.snackBar.open('Auteur créé avec succès.', 'Fermer', {
-          duration: 3000,
+          duration: 1000,
           verticalPosition: 'top',
           horizontalPosition: 'end'
         });
@@ -59,7 +59,7 @@ export class AuteurComponent {
       (error: any) => {
         console.error('Erreur lors de la création de l\'auteur : ', error);
         this.snackBar.open('Erreur lors de la création de l\'auteur.', 'Fermer', {
-          duration: 3000,
+          duration: 1000,
           verticalPosition: 'top',
           horizontalPosition: 'end'
         });

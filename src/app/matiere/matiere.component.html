@@ -1,0 +1,29 @@
+<div class="container" fxLayout="row" fxLayoutAlign="center center">
+    <mat-card class="box">
+        <mat-card-header>
+            <mat-card-title>Ajouter une matière</mat-card-title>
+        </mat-card-header>
+        <form class="example-form" (ngSubmit)="createMatiere()">
+            <mat-card-content>
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Nom de la matière" [(ngModel)]="nom" name="nom" required>
+                </mat-form-field>
+                <input type="file" (change)="onFileSelected($event, 'image')" placeholder="Image de la matière">
+                <br>
+                <br>
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Nom du professeur" [(ngModel)]="nomProf" name="nomProf" required>
+                </mat-form-field>
+                <br>
+                <input type="file" (change)="onFileSelected($event, 'imageProf')" placeholder="Image du professeur">
+            </mat-card-content>
+            <br>
+            <mat-card-actions>
+                <button mat-flat-button color="primary" class="btn-block" type="submit" [disabled]="loading">
+                    <span *ngIf="!loading">Valider</span>
+                    <span *ngIf="loading">Chargement...</span>
+                </button>
+            </mat-card-actions>
+        </form>
+    </mat-card>
+</div>
