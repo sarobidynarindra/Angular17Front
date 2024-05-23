@@ -1,4 +1,23 @@
-/* login.component.css */
+
+.full-width-table {
+    width: 100%;
+}
+
+.box card-container {
+    width: 100%;
+}
+
+.box {
+    margin: 10px;
+}
+
+.example-full-width {
+    width: 100%;
+}
+
+.mat-mdc-card-content:last-child {
+    padding-bottom: 118px;
+}
 .container {
     height: 85vh;
     display: flex;

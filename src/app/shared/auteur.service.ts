@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse,HttpParams  } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -7,6 +7,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuteurService {
+  
 
   private apiUrl = 'http://localhost:8010/api/auteur';
 
@@ -22,7 +23,12 @@ export class AuteurService {
         catchError(this.handleError)
       );
   }
-
+  getAllAuteurs(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/getAllAuteur`)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'Unknown error!';
     if (error.error instanceof ErrorEvent) {
@@ -34,4 +40,7 @@ export class AuteurService {
     }
     return throwError(errorMessage);
   }
+
+  
+
 }

@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuteurService } from '../shared/auteur.service';
+import { MatTableModule } from '@angular/material/table';
 
 @Component({
   selector: 'app-auteur',
@@ -16,7 +17,7 @@ import { AuteurService } from '../shared/auteur.service';
   imports: [
     FormsModule,
     MatFormFieldModule,
-    MatCardModule, MatInputModule, MatButtonModule, CommonModule, MatIconModule
+    MatCardModule, MatInputModule, MatButtonModule, CommonModule, MatIconModule,MatTableModule
   ],
   templateUrl: './auteur.component.html',
   styleUrl: './auteur.component.css'
@@ -25,12 +26,18 @@ export class AuteurComponent {
   nom: string = '';
   selectedFile!: File;
   loading: boolean = false; // Variable to track loading state
-
+  auteurs: any[] = [];
+  displayedColumns: string[] = ['nom', 'photo'];
+ 
   constructor(
     private auteurService: AuteurService,
     private snackBar: MatSnackBar,
     private router: Router
   ) { }
+
+  ngOnInit(): void {
+    this.AllAuteurs();
+  }
 
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
@@ -64,6 +71,22 @@ export class AuteurComponent {
           horizontalPosition: 'end'
         });
         this.loading = false; // Set loading to false in case of error
+      }
+    );
+  }
+
+  AllAuteurs() {
+    this.auteurService.getAllAuteurs().subscribe(
+      (response: any) => {
+        this.auteurs = response.docs;
+      },
+      (error: any) => {
+        console.error('Erreur lors de la récupération des auteurs : ', error);
+        this.snackBar.open('Erreur lors de la récupération des auteurs.', 'Fermer', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'end'
+        });
       }
     );
   }

@@ -20,4 +20,40 @@
             </mat-card-actions>
         </form>
     </mat-card>
+
+    <mat-card class="box card-container">
+        <mat-card-header fxLayoutAlign="center center">
+            <mat-card-title>Liste des auteurs</mat-card-title>
+        </mat-card-header>
+        <br>
+        <br>
+        <mat-card-content>
+    <ng-container *ngIf="auteurs.length > 0; else noAuteurs">
+    <table mat-table [dataSource]="auteurs" class="mat-elevation-z8 full-width-table">
+
+        <ng-container matColumnDef="nom">
+            <th mat-header-cell *matHeaderCellDef> Nom auteur</th>
+            <td mat-cell *matCellDef="let auteur"> {{ auteur.nom }} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="photo">
+            <th mat-header-cell *matHeaderCellDef> Photo </th>
+            <td mat-cell *matCellDef="let auteur">
+                <img [src]="auteur.photo" alt="{{ auteur.nom }}" width="50">
+            </td>
+        </ng-container>
+
+
+        
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</ng-container>
+<ng-template #noAuteurs>
+    <p class="no-auteurs-message">Pas encore d'auteur insérée.</p>
+</ng-template>
+</mat-card-content>
+</mat-card>
 </div>
