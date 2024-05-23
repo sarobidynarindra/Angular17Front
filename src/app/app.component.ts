@@ -12,13 +12,15 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, RouterLink, MatButtonModule, MatDividerModule,
     MatIconModule, MatSlideToggleModule,
-    AssignmentsComponent, MatToolbarModule,MatSidenavModule,MatListModule],
+    AssignmentsComponent, MatToolbarModule, MatSidenavModule, MatListModule, MatDatepickerModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -62,7 +64,7 @@ export class AppComponent {
     this.authService.logout().subscribe(
       (response: any) => {
         const snackBarRef = this.snackBar.open('Déconnexion réussie.', 'Fermer', {
-          duration: 3000, 
+          duration: 3000,
           verticalPosition: 'top',
           horizontalPosition: 'end'
         });

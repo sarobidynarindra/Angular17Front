@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -9,7 +8,12 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { Assignment } from '../assignment.model';
 import { AssignmentsService } from '../../shared/assignments.service';
 import { Router } from '@angular/router';
-
+import { AuteurService } from '../../shared/auteur.service';
+import { MatiereService } from '../../shared/matiere.service';
+import { MatSelectModule } from '@angular/material/select';
+import { FormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-assignment',
@@ -21,6 +25,8 @@ import { Router } from '@angular/router';
     MatFormFieldModule,
     MatDatepickerModule,
     MatButtonModule,
+    MatSelectModule,
+    MatCardModule,
   ],
   templateUrl: './add-assignment.component.html',
   styleUrl: './add-assignment.component.css',
@@ -29,29 +35,65 @@ export class AddAssignmentComponent {
   // champs du formulaire
   nomAssignment = '';
   dateDeRendu = undefined;
+  auteurs:  any[] = [];
+  matieres:  any[] = [];
 
-  constructor(private assignmentsService: AssignmentsService,
-    private router: Router) { }
 
+  constructor(
+    private assignmentsService: AssignmentsService,
+    private router: Router,
+    private auteurService: AuteurService,
+    private matiereService: MatiereService,
+    private snackBar: MatSnackBar,
+  ) { }
+  ngOnInit() {
+    this.getAllAuteurs();
+    this.getMatieres();
+  }
+
+  getAllAuteurs() {
+    this.auteurService.getAllAuteurs().subscribe(
+      (response: any) => {
+        this.auteurs = response.docs;
+      },
+      (error: any) => {
+        console.error('Erreur lors de la récupération des auteurs : ', error);
+        this.snackBar.open('Erreur lors de la récupération des auteurs.', 'Fermer', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'end'
+        });
+      }
+    );
+  }
+
+  getMatieres() {
+    this.matiereService.getAllMatieres().subscribe(
+      (response: any) => {
+        this.matieres = response.docs;
+      },
+      (error: any) => {
+        console.error('Erreur lors de la récupération des matières : ', error);
+        this.snackBar.open('Erreur lors de la récupération des matières.', 'Fermer', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'end'
+        });
+      }
+    );
+  }
   onSubmit(event: any) {
     if ((this.nomAssignment == '') || (this.dateDeRendu === undefined)) return;
 
-    // on crée un nouvel assignment
     let nouvelAssignment = new Assignment();
-    // on genere un id aléatoire (plus tard ce sera fait coté serveur par
-    // une base de données)
     nouvelAssignment.nom = this.nomAssignment;
     nouvelAssignment.dateDeRendu = this.dateDeRendu;
     nouvelAssignment.rendu = false;
 
-    // on utilise le service pour directement ajouter
-    // le nouvel assignment dans le tableau
     this.assignmentsService
       .addAssignment(nouvelAssignment)
       .subscribe((reponse) => {
         console.log(reponse);
-        // On navigue pour afficher la liste des assignments
-        // en utilisant le router de manière programmatique
         this.router.navigate(['/home']);
       });
   }

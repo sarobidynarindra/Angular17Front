@@ -1,5 +1,96 @@
-.form {
-  display:flex;
-  flex-direction: column;
-  margin:5px;
+.container {
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box {
+  max-width: 50%;
+  width: 100%;
+  max-height: 80vh;
+}
+
+.example-form {
+  padding: 16px;
+}
+
+.mat-card-title {
+  text-align: center;
+}
+
+.example-full-width {
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+mat-card-actions {
+  margin-bottom: 12px;
+  width: 100%;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.delete-button {
+  color: red;
+}
+
+mat-card-title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-left: 330px;
+  margin-top: 15px;
+}
+
+.success-message {
+  color: rgb(34, 37, 34);
+  background-color: rgb(93, 226, 93);
+  border-color: rgb(93, 226, 93);
+  padding: 0.75rem 1.25rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  text-align: center;
+}
+
+.error-message {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  text-align: center;
+}
+
+.full-width-table {
+  width: 100%;
+}
+
+.box card-container {
+  width: 100%;
+}
+
+.box {
+  margin: 10px;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.mat-mdc-card-content:last-child {
+  padding-bottom: 118px;
+}
+
+.no-matieres-message {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 16px;
+  color: gray;
+}
+.button{
+  margin-left: 45%;
 }
