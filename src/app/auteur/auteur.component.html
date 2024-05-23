@@ -1,4 +1,4 @@
-<div class="container" fxLayout="row" fxLayoutAlign="center center">
+<div class="container" fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="20px">
     <mat-card class="box">
         <mat-card-header>
             <mat-card-title>Ajouter un auteur</mat-card-title>
@@ -21,7 +21,7 @@
         </form>
     </mat-card>
 
-    <mat-card class="box card-container">
+    <mat-card class="box card-container" fxFlex="55%">
         <mat-card-header fxLayoutAlign="center center">
             <mat-card-title>Liste des auteurs</mat-card-title>
         </mat-card-header>
@@ -44,9 +44,15 @@
             </td>
         </ng-container>
 
-
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> Action </th>
+            <td mat-cell *matCellDef="let auteur">
+                <button mat-icon-button (click)="deleteAuteurs(auteur._id)" class="delete-button">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
         
-
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>

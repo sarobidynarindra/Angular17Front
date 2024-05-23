@@ -29,6 +29,12 @@ export class AuteurService {
         catchError(this.handleError)
       );
   }
+  deleteAuteur(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/deleteAuteur/${id}`)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'Unknown error!';
     if (error.error instanceof ErrorEvent) {
