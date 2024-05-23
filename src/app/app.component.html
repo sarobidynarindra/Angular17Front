@@ -1,15 +1,17 @@
 <mat-toolbar color="primary">
-  <mat-toolbar-row> 
+  <mat-toolbar-row>
     <button (click)="drawer.toggle()" mat-icon-button class="burger">
       <mat-icon>menu</mat-icon>
     </button>
-    <span>{{title}}</span > 
-      <span class="example-spacer"></span>
-      <button mat-button (click)="genererDonneesDeTest()">Peupler BD</button>
-      <button mat-button routerLink="/add">Ajouter Assignment</button>
-      <button mat-button routerLink="/login">Login</button>
-      <button class="boutondeconnexion" mat-flat-button color="accent" (click)="deconnexion()">Déconnexion</button>
-    </mat-toolbar-row>
+    <span>{{title}}</span>
+    <span class="example-spacer"></span>
+    <button mat-button (click)="genererDonneesDeTest()">Peupler BD</button>
+    <button mat-button routerLink="/auteur">Ajout auteur</button>
+    <button mat-button routerLink="/matiere">Ajout matière</button>
+    <button mat-button routerLink="/add">Ajout Assignment</button>
+    <button mat-button routerLink="/login">Login</button>
+    <button class="boutondeconnexion" mat-flat-button color="accent" (click)="deconnexion()">Déconnexion</button>
+  </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-drawer-container class="container" hasBackdrop="false">
@@ -27,7 +29,7 @@
     </h1> -->
     <!-- <mat-slide-toggle (click)="login()" color="primary">Login</mat-slide-toggle>
      -->
-<router-outlet></router-outlet>  
+    <router-outlet></router-outlet>
   </mat-drawer-content>
 </mat-drawer-container>
 
