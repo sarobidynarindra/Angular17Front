@@ -1,5 +1,5 @@
 .container {
-    height: 85vh;
+    height: 80vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -32,14 +32,16 @@ mat-card-actions {
 .btn-block {
     width: 100%;
 }
+
 .delete-button {
     color: red;
-  }
+}
+
 mat-card-title {
     font-size: 24px;
     font-weight: bold;
     text-align: center;
-    margin-left: 74px;
+    margin-left: 330px;
     margin-top: 15px;
 }
 
