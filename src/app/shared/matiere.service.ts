@@ -31,14 +31,20 @@ export class MatiereService {
         catchError(this.handleError)
       );
   }
+  deleteMatiere(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/deleteMatiere/${id}`)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
 
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'Unknown error!';
     if (error.error instanceof ErrorEvent) {
-      // Client-side errors
+
       errorMessage = `Error: ${error.error.message}`;
     } else {
-      // Server-side errors
+
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
     return throwError(errorMessage);

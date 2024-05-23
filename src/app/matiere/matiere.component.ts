@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { MatiereService } from '../shared/matiere.service';
 import { MatTableModule } from '@angular/material/table';
 
+
 @Component({
   selector: 'app-matiere',
   standalone: true,
@@ -34,7 +35,7 @@ export class MatiereComponent implements OnInit {
   selectedImageProf!: File;
   loading: boolean = false;
   matieres: any[] = [];
-  displayedColumns: string[] = ['nom', 'image', 'nomProf', 'imageProf'];
+  displayedColumns: string[] = ['nom', 'image', 'nomProf', 'imageProf', 'actions'];
 
   constructor(
     private matiereService: MatiereService,
@@ -70,6 +71,27 @@ export class MatiereComponent implements OnInit {
         console.error('Erreur lors de la création de la matière : ', error);
         this.loading = false;
         this.snackBar.open('Erreur lors de la création de la matière.', 'Fermer', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'end'
+        });
+      }
+    );
+  }
+
+  deleteMatiere(id: string) {
+    this.matiereService.deleteMatiere(id).subscribe(
+      (response: any) => {
+        this.getMatieres(); // Refresh the list after deletion
+        this.snackBar.open('Matière supprimée avec succès.', 'Fermer', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'end'
+        });
+      },
+      (error: any) => {
+        console.error('Erreur lors de la suppression de la matière : ', error);
+        this.snackBar.open('Erreur lors de la suppression de la matière.', 'Fermer', {
           duration: 3000,
           verticalPosition: 'top',
           horizontalPosition: 'end'

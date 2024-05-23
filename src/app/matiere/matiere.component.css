@@ -6,7 +6,7 @@
 }
 
 .box {
-    max-width: 400px;
+    max-width: 50%;
     width: 100%;
     max-height: 80vh;
 }
@@ -32,7 +32,9 @@ mat-card-actions {
 .btn-block {
     width: 100%;
 }
-
+.delete-button {
+    color: red;
+  }
 mat-card-title {
     font-size: 24px;
     font-weight: bold;
@@ -80,9 +82,10 @@ mat-card-title {
 .mat-mdc-card-content:last-child {
     padding-bottom: 118px;
 }
+
 .no-matieres-message {
     text-align: center;
     margin: 20px 0;
     font-size: 16px;
     color: gray;
-  }
+}
