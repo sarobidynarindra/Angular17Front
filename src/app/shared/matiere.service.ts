@@ -25,6 +25,13 @@ export class MatiereService {
       );
   }
 
+  getAllMatieres(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/getAllMatiere`)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'Unknown error!';
     if (error.error instanceof ErrorEvent) {

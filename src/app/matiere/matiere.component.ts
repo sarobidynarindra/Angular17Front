@@ -1,15 +1,15 @@
-import { Component } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
-import { MatiereService } from '../shared/matiere.service';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-
+import { CommonModule } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { MatiereService } from '../shared/matiere.service';
+import { MatTableModule } from '@angular/material/table';
 
 @Component({
   selector: 'app-matiere',
@@ -17,17 +17,24 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [
     FormsModule,
     MatFormFieldModule,
-    MatCardModule, MatInputModule, MatButtonModule, CommonModule, MatIconModule
+    MatCardModule,
+    MatInputModule,
+    MatButtonModule,
+    CommonModule,
+    MatIconModule,
+    MatTableModule
   ],
   templateUrl: './matiere.component.html',
-  styleUrl: './matiere.component.css'
+  styleUrls: ['./matiere.component.css']
 })
-export class MatiereComponent {
+export class MatiereComponent implements OnInit {
   nom: string = '';
   nomProf: string = '';
-  selectedFile!: File;
-  selectedFileProf!: File;
-  loading: boolean = false; // Variable to track loading state
+  selectedImage!: File;
+  selectedImageProf!: File;
+  loading: boolean = false;
+  matieres: any[] = [];
+  displayedColumns: string[] = ['nom', 'image', 'nomProf', 'imageProf'];
 
   constructor(
     private matiereService: MatiereService,
@@ -35,38 +42,54 @@ export class MatiereComponent {
     private router: Router
   ) { }
 
-  onFileSelected(event: any, fileType: string) {
-    if (fileType === 'image') {
-      this.selectedFile = event.target.files[0];
-    } else if (fileType === 'imageProf') {
-      this.selectedFileProf = event.target.files[0];
+  ngOnInit(): void {
+    this.getMatieres();
+  }
+
+  onFileSelected(event: any, type: string) {
+    if (type === 'image') {
+      this.selectedImage = event.target.files[0];
+    } else if (type === 'imageProf') {
+      this.selectedImageProf = event.target.files[0];
     }
   }
 
   createMatiere() {
     this.loading = true;
-    this.matiereService.createMatiere(this.nom, this.selectedFile, this.nomProf, this.selectedFileProf).subscribe(
+    this.matiereService.createMatiere(this.nom, this.selectedImage, this.nomProf, this.selectedImageProf).subscribe(
       (response: any) => {
-        console.log('Réponse du serveur : ', response);
-        const snackBarRef = this.snackBar.open('Matière ajoutée avec succès.', 'Fermer', {
-          duration: 1000,
+        this.getMatieres(); // Refresh the list after creation
+        this.loading = false;
+        this.snackBar.open('Matière créée avec succès.', 'Fermer', {
+          duration: 3000,
           verticalPosition: 'top',
           horizontalPosition: 'end'
-        });
-
-        snackBarRef.afterDismissed().subscribe(() => {
-          this.router.navigate(['/matiere']);
-          this.loading = false;
         });
       },
       (error: any) => {
-        console.error('Erreur lors de l\'ajout de la matière : ', error);
-        this.snackBar.open('Erreur lors de l\'ajout de la matière.', 'Fermer', {
-          duration: 1000,
+        console.error('Erreur lors de la création de la matière : ', error);
+        this.loading = false;
+        this.snackBar.open('Erreur lors de la création de la matière.', 'Fermer', {
+          duration: 3000,
           verticalPosition: 'top',
           horizontalPosition: 'end'
         });
-        this.loading = false;
+      }
+    );
+  }
+
+  getMatieres() {
+    this.matiereService.getAllMatieres().subscribe(
+      (response: any) => {
+        this.matieres = response.docs;
+      },
+      (error: any) => {
+        console.error('Erreur lors de la récupération des matières : ', error);
+        this.snackBar.open('Erreur lors de la récupération des matières.', 'Fermer', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'end'
+        });
       }
     );
   }

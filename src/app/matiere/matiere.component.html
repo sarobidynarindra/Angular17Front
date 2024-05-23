@@ -1,6 +1,7 @@
-<div class="container" fxLayout="row" fxLayoutAlign="center center">
-    <mat-card class="box">
-        <mat-card-header>
+<div class="container" fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="20px">
+    <!-- Form Section -->
+    <mat-card class="box" fxFlex="45%">
+        <mat-card-header fxLayoutAlign="center center">
             <mat-card-title>Ajouter une matière</mat-card-title>
         </mat-card-header>
         <form class="example-form" (ngSubmit)="createMatiere()">
@@ -9,8 +10,7 @@
                     <input matInput placeholder="Nom de la matière" [(ngModel)]="nom" name="nom" required>
                 </mat-form-field>
                 <input type="file" (change)="onFileSelected($event, 'image')" placeholder="Image de la matière">
-                <br>
-                <br>
+                <br><br>
                 <mat-form-field class="example-full-width">
                     <input matInput placeholder="Nom du professeur" [(ngModel)]="nomProf" name="nomProf" required>
                 </mat-form-field>
@@ -25,5 +25,53 @@
                 </button>
             </mat-card-actions>
         </form>
+    </mat-card>
+
+    <!-- Table Section -->
+    <mat-card class="box card-container">
+        <mat-card-header fxLayoutAlign="center center">
+            <mat-card-title>Liste des matières</mat-card-title>
+        </mat-card-header>
+        <br>
+        <br>
+        <mat-card-content>
+            <ng-container *ngIf="matieres.length > 0; else noMatieres">
+                <table mat-table [dataSource]="matieres" class="mat-elevation-z8 full-width-table">
+
+                    <ng-container matColumnDef="nom">
+                        <th mat-header-cell *matHeaderCellDef> Nom matière</th>
+                        <td mat-cell *matCellDef="let matiere"> {{ matiere.nom }} </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="image">
+                        <th mat-header-cell *matHeaderCellDef> Image </th>
+                        <td mat-cell *matCellDef="let matiere">
+                            <img [src]="matiere.image" alt="{{ matiere.nom }}" width="50">
+                        </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="nomProf">
+                        <th mat-header-cell *matHeaderCellDef> Nom Professeur </th>
+                        <td mat-cell *matCellDef="let matiere"> {{ matiere.nomProf }} </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="imageProf">
+                        <th mat-header-cell *matHeaderCellDef> Image Professeur </th>
+                        <td mat-cell *matCellDef="let matiere">
+                            <img [src]="matiere.imageProf" alt="{{ matiere.nomProf }}" width="50">
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </ng-container>
+            <ng-template #noMatieres>
+                <p class="no-matieres-message">Pas encore de matière insérée.</p>
+            </ng-template>
+        </mat-card-content>
     </mat-card>
 </div>
