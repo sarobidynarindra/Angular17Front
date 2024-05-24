@@ -38,9 +38,10 @@ export class AddAssignmentComponent {
   // champs du formulaire
   nomAssignment = '';
   dateDeRendu = undefined;
-  auteurs:  any[] = [];
-  matieres:  any[] = [];
-
+  auteurs: any[] = [];
+  matieres: any[] = [];
+  auteurSelectionne!: string;
+  matiereSelectionnee!: string;
 
   constructor(
     private assignmentsService: AssignmentsService,
@@ -92,13 +93,27 @@ export class AddAssignmentComponent {
     nouvelAssignment.nom = this.nomAssignment;
     nouvelAssignment.dateDeRendu = this.dateDeRendu;
     nouvelAssignment.rendu = false;
+    nouvelAssignment.auteur = this.auteurSelectionne;
+    nouvelAssignment.matiere = this.matiereSelectionnee;
 
-    this.assignmentsService
-      .addAssignment(nouvelAssignment)
-      .subscribe((reponse) => {
+    this.assignmentsService.addAssignment(nouvelAssignment).subscribe(
+      (reponse) => {
         console.log(reponse);
+        this.snackBar.open('Assignment ajouté avec succès.', 'Fermer', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'end'
+        });
         this.router.navigate(['/home']);
-      });
+      },
+      (error: any) => {
+        console.error('Erreur lors de l\'ajout de l\'assignment : ', error);
+        this.snackBar.open('Erreur lors de l\'ajout de l\'assignment.', 'Fermer', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'end'
+        });
+      }
+    );
   }
-
 }
