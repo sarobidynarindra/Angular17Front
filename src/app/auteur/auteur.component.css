@@ -57,7 +57,8 @@ mat-card-title {
     font-size: 24px;
     font-weight: bold;
     text-align: center;
-    margin-left: 80px;
+    margin-left: 300px;
+    margin-top: 15px;
 }
 
 .success-message {
