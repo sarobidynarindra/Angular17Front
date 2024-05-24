@@ -17,16 +17,15 @@
       <mat-card class="example-card">
         <mat-card-header>
           <div mat-card-avatar class="example-header-image-round">
-            <img src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Nom de l'image">
+            <img [src]="a.auteurs.photo" alt="Nom de l'image">
           </div>
           <mat-card-title>{{ a.nom }}</mat-card-title>
           <mat-card-subtitle>{{ a.dateDeRendu | date }}</mat-card-subtitle>
           <div class="example-header-image-round-right">
-            <img src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Nom de l'image">
+            <img [src]="a.matieres.imageProf" alt="Nom de l'image">
           </div>
         </mat-card-header>
-        <img mat-card-image class="imageMatiere" src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-          alt="Photo of a Shiba Inu">
+        <img mat-card-image class="imageMatiere" [src]="a.matieres.image" alt="Photo of a Shiba Inu">
         <mat-card-content>
           <p>
             <!-- Le contenu de la carte -->

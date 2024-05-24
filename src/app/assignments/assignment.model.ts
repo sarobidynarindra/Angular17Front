@@ -1,3 +1,6 @@
+import { Auteur } from "../auteur/auteur.model";
+import { Matiere } from "../matiere/matiere.model";
+
 export class Assignment {
   _id?: string;
   nom!: string;
@@ -5,4 +8,6 @@ export class Assignment {
   rendu!: boolean;
   auteur!: string;
   matiere!: string;
+  auteurs!: Auteur;
+  matieres!: Matiere;
 }

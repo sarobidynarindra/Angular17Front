@@ -19,7 +19,7 @@ import { AddAssignmentComponent } from './add-assignment/add-assignment.componen
 import { AssignmentsService } from '../shared/assignments.service';
 import { RouterLink } from '@angular/router';
 import { filter, map, pairwise, tap, throttleTime } from 'rxjs/operators';
-import {MatCardModule} from '@angular/material/card'
+import { MatCardModule } from '@angular/material/card'
 @Component({
   selector: 'app-assignments',
   standalone: true,
@@ -72,8 +72,9 @@ export class AssignmentsComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('ngOnInit assignments, appelée AVANT affichage du composant');
+
     this.getAssignmentsFromService();
+    console.log("toto");
   }
 
   ngAfterViewInit() {
@@ -141,7 +142,7 @@ export class AssignmentsComponent implements OnInit {
       .getAssignmentsPagines(this.page, this.limit)
       .subscribe((data) => {
         // les données arrivent ici au bout d'un certain temps
-        console.log('Données arrivées');
+        console.log(data);
         this.assignments = [...this.assignments, ...data.docs];
         this.totalDocs = data.totalDocs;
         this.totalPages = data.totalPages;
@@ -150,6 +151,7 @@ export class AssignmentsComponent implements OnInit {
         this.hasNextPage = data.hasNextPage;
         this.hasPrevPage = data.hasPrevPage;
       });
+
     console.log('Requête envoyée');
   }
 
