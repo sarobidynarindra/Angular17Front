@@ -1,4 +1,14 @@
 .container {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+}
+mat-card-content p {
+  margin: 10px 0;
+  font-size: 16px;
+}
+.text{
+  color:red;
+}
+.buttonedit{
+  margin-left: 20px;
 }
