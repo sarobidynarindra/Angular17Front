@@ -27,9 +27,11 @@
     <!-- @if(!assignmentTransmis.rendu) {
     <mat-checkbox (click)="onAssignmentRendu()">Rendu</mat-checkbox>
     } -->
+    
     <button mat-raised-button color="warn" (click)="onDelete()" [disabled]="!isAuthenticated()">
       DELETE
     </button>
+  
     <nav>
       <a routerLink="edit">
         <button mat-raised-button color="primary" [disabled]="!isAuthenticated()" class="buttonedit">
