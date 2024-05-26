@@ -13,7 +13,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { Observable } from 'rxjs/internal/Observable';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-assignment-detail',
   standalone: true,
@@ -28,7 +28,8 @@ export class AssignmentDetailComponent implements OnInit {
   constructor(private assignmentsService: AssignmentsService,
     private authService: AuthService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     localStorage.getItem('isAuthenticated');
@@ -59,7 +60,11 @@ export class AssignmentDetailComponent implements OnInit {
     if (this.assignmentTransmis) {
       this.assignmentsService.deleteAssignment(this.assignmentTransmis)
         .subscribe(message => {
-          console.log(message);
+          this.snackBar.open('Assignement '+this.assignmentTransmis?.nom +' a été supprimé.', 'Fermer', {
+            duration: 3000,
+            verticalPosition: 'top',
+            horizontalPosition: 'end'
+          });
           // on va cacher la vue de detail en mettant assignmentTransmis à undefined
           this.assignmentTransmis = undefined;
           // on navigue vers la liste des assignments
