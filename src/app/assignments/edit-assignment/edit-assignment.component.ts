@@ -75,7 +75,8 @@ export class EditAssignmentComponent implements OnInit {
     this.assignment.dateDeRendu = this.dateDeRendu;
     this.assignment.note = this.note;
     this.assignment.remarques = this.remarques;
-
+    console.log(this.assignment.note);
+    console.log(this.assignment.remarques);
     this.assignmentsService.updateAssignment(this.assignment).subscribe({
       next: (message) => {
         this.snackBar.open('Assignment updated successfully!', 'Close', {
