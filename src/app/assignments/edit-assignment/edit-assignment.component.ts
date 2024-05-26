@@ -13,6 +13,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatiereService } from '../../shared/matiere.service';
 import { AuteurService } from '../../shared/auteur.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-edit-assignment',
@@ -29,18 +30,20 @@ import { AuteurService } from '../../shared/auteur.service';
     CommonModule
   ],
   templateUrl: './edit-assignment.component.html',
-  styleUrl: './edit-assignment.component.css',
+  styleUrls: ['./edit-assignment.component.css'],
 })
 export class EditAssignmentComponent implements OnInit {
   assignment?: Assignment;
-  auteurs: any[] = []; // Ajout de la liste des auteurs
-  matieres: any[] = []; // Ajout de la liste des matières
+  auteurs: any[] = [];
+  matieres: any[] = [];
 
   // Pour les champs de formulaire
   nomAssignment = '';
   dateDeRendu?: Date = undefined;
-  selectedAuteurId?: string; // Ajout de l'id de l'auteur sélectionné
-  selectedMatiereId?: string; // Ajout de l'id de la matière sélectionnée
+  selectedAuteurId?: string;
+  selectedMatiereId?: string;
+  note!: number;
+  remarques = '';
 
   constructor(
     private assignmentsService: AssignmentsService,
@@ -48,43 +51,47 @@ export class EditAssignmentComponent implements OnInit {
     private route: ActivatedRoute,
     private auteurService: AuteurService,
     private matiereService: MatiereService,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
-    // on récupère l'id dans l'url
     const id = this.route.snapshot.params['id'];
-    console.log(id);
-    this.assignmentsService.getAssignment(id)
-      .subscribe((assignment) => {
-        this.assignment = assignment;
-        // on met à jour les champs du formulaire
-        if (assignment !== undefined) {
-          this.nomAssignment = assignment.nom;
-          this.dateDeRendu = assignment.dateDeRendu;
-          
-        }
-      });
-
+    this.assignmentsService.getAssignment(id).subscribe((assignment) => {
+      this.assignment = assignment;
+      if (assignment !== undefined) {
+        this.nomAssignment = assignment.nom;
+        this.dateDeRendu = assignment.dateDeRendu;
+        this.note = assignment.note;
+        this.remarques = assignment.remarques;
+      }
+    });
   }
 
   onSaveAssignment() {
     if (!this.assignment) return;
-    if (this.nomAssignment == '' || this.dateDeRendu === undefined || !this.selectedAuteurId || !this.selectedMatiereId) return;
+    if (this.nomAssignment === '' || this.dateDeRendu === undefined) return;
 
-    // on récupère les valeurs dans le formulaire
-    this.assignment._id = this.route.snapshot.params['id'];
     this.assignment.nom = this.nomAssignment;
     this.assignment.dateDeRendu = this.dateDeRendu;
-    this.assignment.auteur = this.selectedAuteurId; // Assigner l'id de l'auteur sélectionné
-    this.assignment.matiere = this.selectedMatiereId; // Assigner l'id de la matière sélectionnée
+    this.assignment.note = this.note;
+    this.assignment.remarques = this.remarques;
 
-    this.assignmentsService
-      .updateAssignment(this.assignment)
-      .subscribe((message) => {
-        console.log(message);
-
-        // navigation vers la home page
+    this.assignmentsService.updateAssignment(this.assignment).subscribe({
+      next: (message) => {
+        this.snackBar.open('Assignment updated successfully!', 'Close', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'end'
+        });
         this.router.navigate(['/home']);
-      });
+      },
+      error: (error) => {
+        this.snackBar.open('Failed to update assignment. Please try again.', 'Close', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'end'
+        });
+      }
+    });
   }
 }
