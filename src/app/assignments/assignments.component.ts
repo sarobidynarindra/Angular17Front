@@ -47,7 +47,7 @@ export class AssignmentsComponent implements OnInit {
   titre = 'Liste des assignments';
   // Pour la pagination
   page = 1;
-  limit = 10;
+  limit = 3;
   totalDocs!: number;
   totalPages!: number;
   nextPage!: number;
@@ -55,10 +55,16 @@ export class AssignmentsComponent implements OnInit {
   hasNextPage!: boolean;
   hasPrevPage!: boolean;
 
-  // tableau des assignments POUR AFFICHAGE
-  displayedColumns: string[] = ['nom', 'dateDeRendu', 'rendu'];
+  totalDocsRendu!: number;
+  totalPagesRendu!: number;
+  nextPageRendu!: number;
+  prevPageRendu!: number;
+  hasNextPageRendu!: boolean;
+  hasPrevPageRendu!: boolean;
 
+  displayedColumns: string[] = ['Listes des assignments non rendu','Listes des assignments rendus'];
   assignments: Assignment[] = [];
+  assignmentsRendu: Assignment[] = [];
 
   // pour virtual scroll infini
   @ViewChild('scroller') scroller!: CdkVirtualScrollViewport;
@@ -73,7 +79,8 @@ export class AssignmentsComponent implements OnInit {
 
   ngOnInit() {
 
-    this.getAssignmentsFromService();
+    this.getAssignmentsFromServiceRenduFalse();
+    this.getAssignmentsFromServiceRenduTrue();
     console.log("toto");
   }
 
@@ -118,10 +125,10 @@ export class AssignmentsComponent implements OnInit {
       });
   }
 
-  getAssignmentsFromService() {
+  getAssignmentsFromServiceRenduFalse() {
     // on récupère les assignments depuis le service
     this.assignmentsService
-      .getAssignmentsPagines(this.page, this.limit)
+      .getAssignmentAvecRenduFalsePagine(this.page, this.limit)
       .subscribe((data) => {
         // les données arrivent ici au bout d'un certain temps
         console.log('Données arrivées');
@@ -132,10 +139,27 @@ export class AssignmentsComponent implements OnInit {
         this.prevPage = data.prevPage;
         this.hasNextPage = data.hasNextPage;
         this.hasPrevPage = data.hasPrevPage;
+        
       });
     console.log('Requête envoyée');
   }
-
+  getAssignmentsFromServiceRenduTrue(){
+    // on récupère les assignments depuis le service
+    this.assignmentsService
+      .getAssignmentAvecRenduTruePagine(this.page, this.limit)
+      .subscribe((data) => {
+        // les données arrivent ici au bout d'un certain temps
+        console.log('Données arrivées');
+        this.assignmentsRendu = data.docs;
+        this.totalDocsRendu = data.totalDocs;
+        this.totalPagesRendu = data.totalPages;
+        this.nextPageRendu = data.nextPage;
+        this.prevPageRendu = data.prevPage;
+        this.hasNextPageRendu = data.hasNextPage;
+        this.hasPrevPageRendu = data.hasPrevPage;
+      });
+    console.log('Requête envoyée');
+  }
   getAssignmentsFromServicePourScrollInfini() {
     // on récupère les assignments depuis le service
     this.assignmentsService
@@ -156,29 +180,55 @@ export class AssignmentsComponent implements OnInit {
   }
 
   // Pour la pagination
+  pagePrecedenteRendu() {
+    this.page = this.prevPageRendu;
+    this.getAssignmentsFromServiceRenduTrue();
+  }
+  pageSuivanteRendu() {
+    this.page = this.nextPageRendu;
+    this.getAssignmentsFromServiceRenduTrue();
+  }
+
+  premierePageRendu() {
+    this.page = 1;
+    this.getAssignmentsFromServiceRenduTrue();
+  }
+
+  dernierePageRendu() {
+    this.page = this.totalPagesRendu;
+    this.getAssignmentsFromServiceRenduTrue();
+  }
+
+  // Pour le composant angular material paginator
+  handlePageEventRendu(event: PageEvent) {
+    this.page = event.pageIndex + 1;
+    this.limit = event.pageSize;
+    this.getAssignmentsFromServiceRenduTrue();
+  }
+
   pagePrecedente() {
     this.page = this.prevPage;
-    this.getAssignmentsFromService();
+    this.getAssignmentsFromServiceRenduFalse();
   }
   pageSuivante() {
     this.page = this.nextPage;
-    this.getAssignmentsFromService();
+    this.getAssignmentsFromServiceRenduFalse();
   }
 
   premierePage() {
     this.page = 1;
-    this.getAssignmentsFromService();
+    this.getAssignmentsFromServiceRenduFalse();
   }
 
   dernierePage() {
     this.page = this.totalPages;
-    this.getAssignmentsFromService();
+    this.getAssignmentsFromServiceRenduFalse();
   }
 
   // Pour le composant angular material paginator
   handlePageEvent(event: PageEvent) {
     this.page = event.pageIndex + 1;
     this.limit = event.pageSize;
-    this.getAssignmentsFromService();
+    this.getAssignmentsFromServiceRenduFalse();
   }
 }

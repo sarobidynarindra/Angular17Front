@@ -88,7 +88,12 @@ export class AssignmentsService {
     //return of("Assignment supprimé avec succès");
     return this.http.delete(this.uri + "/" + assignment._id);
   }
-
+  getAssignmentAvecRenduFalsePagine(page: number, limit: number): Observable<any>{
+     return this.http.get<Assignment[]>(`${this.uri}/getAssignmentsByRenduFalse?page=${page}&limit=${limit}`);
+  }
+  getAssignmentAvecRenduTruePagine(page: number, limit: number): Observable<any>{
+    return this.http.get<Assignment[]>(`${this.uri}/getAssignmentsByRenduTrue?page=${page}&limit=${limit}`);
+  }
   // VERSION NAIVE (on ne peut pas savoir quand l'opération des 1000 insertions est terminée)
   peuplerBD() {
     // on utilise les données de test générées avec mockaroo.com pour peupler la base
