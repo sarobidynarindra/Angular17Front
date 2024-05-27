@@ -13,8 +13,9 @@
     <p><strong>Professeur :</strong> {{ assignmentTransmis.matieres.nomProf }}</p>
     <p><strong>Elève :</strong> {{ assignmentTransmis.auteurs.nom }}</p>
     <div *ngIf="assignmentTransmis.note === null && assignmentTransmis.remarques === null">
-      <p><strong class="text">Devoir non rendu donc il n'y a pas encore de note!!!</strong></p>
+      <p><strong class="text"> Devoir non rendu donc il n'y a pas encore de note!!! </strong></p>
     </div>
+
 
     <!-- Display note and remarks if they are available -->
     <div *ngIf="assignmentTransmis.note !== null || assignmentTransmis.remarques !== null">
@@ -22,16 +23,20 @@
       <p><strong>Note :</strong> {{ assignmentTransmis.note }}</p>
       <p><strong>Remarques :</strong> {{ assignmentTransmis.remarques }}</p>
     </div>
+    <div
+      *ngIf="(assignmentTransmis.note != null && assignmentTransmis.remarques === null) || (assignmentTransmis.note != null && assignmentTransmis.remarques != null)">
+      <p><strong class="textRendu"> DEVOIR RENDU </strong></p>
+    </div>
   </mat-card-content>
   <mat-card-actions class="container">
     <!-- @if(!assignmentTransmis.rendu) {
     <mat-checkbox (click)="onAssignmentRendu()">Rendu</mat-checkbox>
     } -->
-    
+
     <button mat-raised-button color="warn" (click)="onDelete()" [disabled]="!isAuthenticated()">
       DELETE
     </button>
-  
+
     <nav>
       <a routerLink="edit">
         <button mat-raised-button color="primary" [disabled]="!isAuthenticated()" class="buttonedit">
