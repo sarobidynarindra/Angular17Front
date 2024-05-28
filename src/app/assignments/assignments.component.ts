@@ -19,6 +19,7 @@ import { AssignmentDialogComponent } from '../assignment-dialog/assignment-dialo
 import { MatDialog } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-assignments',
@@ -68,7 +69,7 @@ export class AssignmentsComponent implements OnInit {
   @ViewChild('scroller') scroller!: CdkVirtualScrollViewport;
 
   constructor(private assignmentsService: AssignmentsService,
-              private ngZone: NgZone, private dialog: MatDialog) { }
+    private ngZone: NgZone, private dialog: MatDialog, private snackBar: MatSnackBar) { }
 
   getColor(a: any) {
     return a.rendu ? 'green' : 'red';
@@ -87,7 +88,7 @@ export class AssignmentsComponent implements OnInit {
     this.scroller
       .elementScrolled()
       .pipe(
-        tap(() => {}),
+        tap(() => { }),
         map(() => this.scroller.measureScrollOffset('bottom')),
         pairwise(),
         filter(([y1, y2]) => y2 < y1 && y2 < 100),
@@ -212,12 +213,30 @@ export class AssignmentsComponent implements OnInit {
   openDialog(assignment: Assignment): void {
     const dialogRef = this.dialog.open(AssignmentDialogComponent, {
       width: '400px',
-      data: { assignment }
+      data: { assignment } // Pass the assignment data to the dialog
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         console.log('The dialog was closed with result: ', result);
+        this.assignmentsService.updateAssignmentNoteRemarque(result).subscribe(updatedAssignment => {
+          console.log('Assignment updated:', updatedAssignment);
+          this.snackBar.open('Assignment updated successfully!', 'Close', {
+            duration: 3000,
+            verticalPosition: 'top',
+            horizontalPosition: 'end'
+          });
+          this.getAssignmentsFromServiceRenduFalse();
+          this.getAssignmentsFromServiceRenduTrue();
+        }, error => {
+          console.error('Error updating assignment:', error);
+          // Show error snackbar
+          this.snackBar.open('Error updating assignment!', 'Close', {
+            duration: 3000,
+            verticalPosition: 'top',
+            horizontalPosition: 'end'
+          });
+        });
       }
     });
   }

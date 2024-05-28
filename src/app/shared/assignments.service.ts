@@ -14,11 +14,13 @@ import { bdInitialAssignments } from './data';
 export class AssignmentsService {
   assignments: Assignment[] = [];
 
+
   constructor(private logService: LoggingService,
     private http: HttpClient) { }
 
   uri = 'http://localhost:8010/api/assignments';
   //uri = "https://angularmbdsmadagascar2024.onrender.com/api/assignments";
+  uri1 = 'http://localhost:8010/api/assignments/updateAssignmentNoteRemarque';
 
   // retourne tous les assignments
   getAssignments(): Observable<Assignment[]> {
@@ -79,6 +81,11 @@ export class AssignmentsService {
     //return of("Assignment modifié avec succès");
     return this.http.put<Assignment>(this.uri, assignment);
   }
+  updateAssignmentNoteRemarque(assignment: Assignment): Observable<any> {
+    console.log(assignment);
+    this.logService.log(assignment.nom, "modifié");
+    return this.http.put<Assignment>(this.uri1, assignment);
+  }
 
   deleteAssignment(assignment: Assignment): Observable<any> {
     // on va supprimer l'assignment dans le tableau
@@ -88,10 +95,10 @@ export class AssignmentsService {
     //return of("Assignment supprimé avec succès");
     return this.http.delete(this.uri + "/" + assignment._id);
   }
-  getAssignmentAvecRenduFalsePagine(page: number, limit: number): Observable<any>{
-     return this.http.get<Assignment[]>(`${this.uri}/getAssignmentsByRenduFalse?page=${page}&limit=${limit}`);
+  getAssignmentAvecRenduFalsePagine(page: number, limit: number): Observable<any> {
+    return this.http.get<Assignment[]>(`${this.uri}/getAssignmentsByRenduFalse?page=${page}&limit=${limit}`);
   }
-  getAssignmentAvecRenduTruePagine(page: number, limit: number): Observable<any>{
+  getAssignmentAvecRenduTruePagine(page: number, limit: number): Observable<any> {
     return this.http.get<Assignment[]>(`${this.uri}/getAssignmentsByRenduTrue?page=${page}&limit=${limit}`);
   }
   // VERSION NAIVE (on ne peut pas savoir quand l'opération des 1000 insertions est terminée)

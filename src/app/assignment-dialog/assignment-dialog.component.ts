@@ -35,6 +35,12 @@ export class AssignmentDialogComponent {
   }
 
   onSubmit() {
-    this.dialogRef.close(this.form.value);
+    // Combine the existing assignment data with the form data
+    const updatedAssignment = {
+      ...this.data.assignment,
+      note: this.form.value.note,
+      remarques: this.form.value.remarques
+    };
+    this.dialogRef.close(updatedAssignment); // Close the dialog with the updated assignment data
   }
 }
