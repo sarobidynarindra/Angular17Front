@@ -20,6 +20,10 @@ import { AssignmentsService } from '../shared/assignments.service';
 import { RouterLink } from '@angular/router';
 import { filter, map, pairwise, tap, throttleTime } from 'rxjs/operators';
 import { MatCardModule } from '@angular/material/card'
+import { AssignmentDialogComponent } from '../assignment-dialog/assignment-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-assignments',
   standalone: true,
@@ -40,7 +44,8 @@ import { MatCardModule } from '@angular/material/card'
     RenduDirective,
     AssignmentDetailComponent,
     AddAssignmentComponent,
-    MatCardModule
+    MatCardModule,
+    MatDialogModule
   ],
 })
 export class AssignmentsComponent implements OnInit {
@@ -62,7 +67,7 @@ export class AssignmentsComponent implements OnInit {
   hasNextPageRendu!: boolean;
   hasPrevPageRendu!: boolean;
 
-  displayedColumns: string[] = ['Listes des assignments non rendu','Listes des assignments rendus'];
+  displayedColumns: string[] = ['Listes des assignments non rendu', 'Listes des assignments rendus'];
   assignments: Assignment[] = [];
   assignmentsRendu: Assignment[] = [];
 
@@ -71,7 +76,7 @@ export class AssignmentsComponent implements OnInit {
 
   // ici on injecte le service
   constructor(private assignmentsService: AssignmentsService,
-    private ngZone: NgZone) { }
+    private ngZone: NgZone, private dialog: MatDialog) { }
 
   getColor(a: any) {
     return a.rendu ? 'green' : 'red';
@@ -82,6 +87,20 @@ export class AssignmentsComponent implements OnInit {
     this.getAssignmentsFromServiceRenduFalse();
     this.getAssignmentsFromServiceRenduTrue();
     console.log("toto");
+  }
+  onDragged() {
+    this.openPopup();
+  }
+
+  openPopup() {
+    const dialogRef = this.dialog.open(AssignmentDialogComponent, {
+      width: '250px',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Popup fermé');
+    });
   }
 
   ngAfterViewInit() {
@@ -139,11 +158,11 @@ export class AssignmentsComponent implements OnInit {
         this.prevPage = data.prevPage;
         this.hasNextPage = data.hasNextPage;
         this.hasPrevPage = data.hasPrevPage;
-        
+
       });
     console.log('Requête envoyée');
   }
-  getAssignmentsFromServiceRenduTrue(){
+  getAssignmentsFromServiceRenduTrue() {
     // on récupère les assignments depuis le service
     this.assignmentsService
       .getAssignmentAvecRenduTruePagine(this.page, this.limit)

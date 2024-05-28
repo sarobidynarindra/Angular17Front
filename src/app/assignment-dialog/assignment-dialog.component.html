@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Ajouter des remarques et une note</h1>
+<div mat-dialog-content>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill">
+            <mat-label>Note</mat-label>
+            <input matInput type="number" formControlName="note">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Remarques</mat-label>
+            <textarea matInput formControlName="remarque"></textarea>
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="dialogRef.close()">Annuler</button>
+    <button mat-button color="primary" (click)="onSubmit()">Ajouter</button>
+</div>

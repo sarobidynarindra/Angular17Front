@@ -1,44 +1,44 @@
 <div class="container">
   <div class="left">
-  <h2>Listes des assignments non rendus</h2>
-  <p>
-    Nb documents : {{ totalDocs }}, nbPages : {{ totalPages }}
-    <br />
-    Page courante : {{ page }}, nb de docs par page : {{ limit }}
-    <!-- add slider for adjusting the limit property, with angular 17 -->
-    <mat-slider min="1" max="100" step="1" thumbLabel>
-      <input matSliderThumb [(ngModel)]="limit" (change)="getAssignmentsFromServiceRenduFalse()" />
-    </mat-slider>
-  </p>
-  
+    <h2>Listes des assignments non rendus</h2>
+    <p>
+      Nb documents : {{ totalDocs }}, nbPages : {{ totalPages }}
+      <br />
+      Page courante : {{ page }}, nb de docs par page : {{ limit }}
+      <!-- add slider for adjusting the limit property, with angular 17 -->
+      <mat-slider min="1" max="100" step="1" thumbLabel>
+        <input matSliderThumb [(ngModel)]="limit" (change)="getAssignmentsFromServiceRenduFalse()" />
+      </mat-slider>
+    </p>
 
-  <div class="cards-container">
-    <!-- Utilisez ngFor pour itérer sur les assignments -->
-    <div *ngFor="let a of assignments">
-      <mat-card class="example-card">
-        <mat-card-header>
-          <div mat-card-avatar class="example-header-image-round">
-            <img [src]="a.auteurs.photo" alt="Nom de l'image">
-          </div>
-          <mat-card-title>{{ a.nom }}</mat-card-title>
-          <mat-card-subtitle>{{ a.dateDeRendu | date }}</mat-card-subtitle>
-          <div class="example-header-image-round-right">
-            <img [src]="a.matieres.imageProf" alt="Nom de l'image">
-          </div>
-        </mat-card-header>
-        <img mat-card-image class="imageMatiere" [src]="a.matieres.image" alt="Photo of a Shiba Inu">
-        <mat-card-content>
-          <p>
-            <!-- Le contenu de la carte -->
-            {{ a.rendu ? a.rendu : a.nom + ' NON RENDU !!!!' }}
-          </p>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-flat-button color="primary" routerLink="/assignment/{{ a._id }}">Voir détails</button>
-        </mat-card-actions>
-      </mat-card>
+
+    <div class="cards-container">
+      <!-- Utilisez ngFor pour itérer sur les assignments -->
+      <div *ngFor="let a of assignments">
+        <mat-card class="example-card" cdkDrag (cdkDragStarted)="onDragged()">
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image-round">
+              <img [src]="a.auteurs.photo" alt="Nom de l'image">
+            </div>
+            <mat-card-title>{{ a.nom }}</mat-card-title>
+            <mat-card-subtitle>{{ a.dateDeRendu | date }}</mat-card-subtitle>
+            <div class="example-header-image-round-right">
+              <img [src]="a.matieres.imageProf" alt="Nom de l'image">
+            </div>
+          </mat-card-header>
+          <img mat-card-image class="imageMatiere" [src]="a.matieres.image" alt="Photo of a Shiba Inu">
+          <mat-card-content>
+            <p>
+              <!-- Le contenu de la carte -->
+              {{ a.rendu ? a.rendu : a.nom + ' NON RENDU !!!!' }}
+            </p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-flat-button color="primary" routerLink="/assignment/{{ a._id }}">Voir détails</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
     </div>
-  </div>
     <div class="pagination">
       <button mat-raised-button color="primary" [disabled]="!hasPrevPage" (click)="premierePage()">
         Première
@@ -56,48 +56,48 @@
         Dernière
       </button>
     </div>
-  
-</div>
-<div class="right">
-  <h2>Listes des assignments rendus</h2>
-  <p>
-    Nb documents : {{ totalDocsRendu }}, nbPages : {{ totalPagesRendu }}
-    <br />
-    Page courante : {{ page }}, nb de docs par page : {{ limit }}
-    <!-- add slider for adjusting the limit property, with angular 17 -->
-    <mat-slider min="1" max="100" step="1" thumbLabel>
-      <input matSliderThumb [(ngModel)]="limit" (change)="getAssignmentsFromServiceRenduTrue()" />
-    </mat-slider>
-  </p>
-  
 
-  <div class="cards-container">
-    <!-- Utilisez ngFor pour itérer sur les assignments -->
-    <div *ngFor="let ar of assignmentsRendu">
-      <mat-card class="example-card">
-        <mat-card-header>
-          <div mat-card-avatar class="example-header-image-round">
-            <img [src]="ar.auteurs.photo" alt="Nom de l'image">
-          </div>
-          <mat-card-title>{{ ar.nom }}</mat-card-title>
-          <mat-card-subtitle>{{ ar.dateDeRendu | date }}</mat-card-subtitle>
-          <div class="example-header-image-round-right">
-            <img [src]="ar.matieres.imageProf" alt="Nom de l'image">
-          </div>
-        </mat-card-header>
-        <img mat-card-image class="imageMatiere" [src]="ar.matieres.image" alt="Photo of a Shiba Inu">
-        <mat-card-content>
-          <p>
-            <!-- Le contenu de la carte -->
-            {{ ar.rendu ? ar.rendu : ar.nom + ' NON RENDU !!!!' }}
-          </p>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-flat-button color="primary" routerLink="/assignment/{{ ar._id }}">Voir détails</button>
-        </mat-card-actions>
-      </mat-card>
-    </div>
   </div>
+  <div class="right">
+    <h2>Listes des assignments rendus</h2>
+    <p>
+      Nb documents : {{ totalDocsRendu }}, nbPages : {{ totalPagesRendu }}
+      <br />
+      Page courante : {{ page }}, nb de docs par page : {{ limit }}
+      <!-- add slider for adjusting the limit property, with angular 17 -->
+      <mat-slider min="1" max="100" step="1" thumbLabel>
+        <input matSliderThumb [(ngModel)]="limit" (change)="getAssignmentsFromServiceRenduTrue()" />
+      </mat-slider>
+    </p>
+
+
+    <div class="cards-container">
+      <!-- Utilisez ngFor pour itérer sur les assignments -->
+      <div *ngFor="let ar of assignmentsRendu">
+        <mat-card class="example-card">
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image-round">
+              <img [src]="ar.auteurs.photo" alt="Nom de l'image">
+            </div>
+            <mat-card-title>{{ ar.nom }}</mat-card-title>
+            <mat-card-subtitle>{{ ar.dateDeRendu | date }}</mat-card-subtitle>
+            <div class="example-header-image-round-right">
+              <img [src]="ar.matieres.imageProf" alt="Nom de l'image">
+            </div>
+          </mat-card-header>
+          <img mat-card-image class="imageMatiere" [src]="ar.matieres.image" alt="Photo of a Shiba Inu">
+          <mat-card-content>
+            <p>
+              <!-- Le contenu de la carte -->
+              {{ ar.rendu ? ar.rendu : ar.nom + ' NON RENDU !!!!' }}
+            </p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-flat-button color="primary" routerLink="/assignment/{{ ar._id }}">Voir détails</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
     <div class="pagination">
       <button mat-raised-button color="primary" [disabled]="!hasPrevPageRendu" (click)="premierePageRendu()">
         Première
@@ -115,6 +115,6 @@
         Dernière
       </button>
     </div>
-  
-</div>
+
+  </div>
 </div>
