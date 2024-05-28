@@ -18,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule,
     ReactiveFormsModule
   ],
+  styleUrls: ['./assignment-dialog.component.css']
 })
 export class AssignmentDialogComponent {
   form: FormGroup;

@@ -130,3 +130,15 @@ td {
   box-sizing: border-box;
   padding: 20px;
 }
+
+.example-card {
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+/* Styles pour le conteneur de cartes */
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}

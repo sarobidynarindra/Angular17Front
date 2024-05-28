@@ -1,0 +1,7 @@
+.input {
+    flex: auto;
+    min-width: 0;
+    width: 320px;
+    position: relative;
+    box-sizing: border-box;
+}
