@@ -8,7 +8,7 @@ import { catchError } from 'rxjs/operators';
 })
 export class MatiereService {
 
-  private apiUrl = 'http://localhost:8010/api/matiere';
+  private apiUrl = 'https://angular17back.onrender.com/api/matiere';
 
   constructor(private http: HttpClient) { }
 

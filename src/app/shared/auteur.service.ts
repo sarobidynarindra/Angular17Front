@@ -9,7 +9,7 @@ import { catchError } from 'rxjs/operators';
 export class AuteurService {
   
 
-  private apiUrl = 'http://localhost:8010/api/auteur';
+  private apiUrl = 'https://angular17back.onrender.com/api/auteur';
 
   constructor(private http: HttpClient) { }
 

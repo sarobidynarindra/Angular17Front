@@ -18,9 +18,9 @@ export class AssignmentsService {
   constructor(private logService: LoggingService,
     private http: HttpClient) { }
 
-  uri = 'http://localhost:8010/api/assignments';
+  uri = 'https://angular17back.onrender.com/api/assignments';
   //uri = "https://angularmbdsmadagascar2024.onrender.com/api/assignments";
-  uri1 = 'http://localhost:8010/api/assignments/updateAssignmentNoteRemarque';
+  uri1 = 'https://angular17back.onrender.com/api/assignments/updateAssignmentNoteRemarque';
 
   // retourne tous les assignments
   getAssignments(): Observable<Assignment[]> {

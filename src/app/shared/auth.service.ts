@@ -11,8 +11,8 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  uri = 'http://localhost:8010/api/auth/login';
-  urldeconnexion = 'http://localhost:8010/api/auth/logout';
+  uri = 'https://angular17back.onrender.com/api/auth/login';
+  urldeconnexion = 'https://angular17back.onrender.com/api/auth/logout';
 
   login(formData: any): Observable<boolean> {
     return this.http.post<any>(this.uri, formData).pipe(
