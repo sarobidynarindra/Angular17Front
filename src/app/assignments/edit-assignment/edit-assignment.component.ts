@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -11,74 +11,89 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
-import { MatiereService } from '../../shared/matiere.service';
-import { AuteurService } from '../../shared/auteur.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-edit-assignment',
   standalone: true,
   providers: [provideNativeDateAdapter()],
   imports: [
-    FormsModule,
+    ReactiveFormsModule,
     MatInputModule,
     MatFormFieldModule,
     MatDatepickerModule,
     MatButtonModule,
     MatSelectModule,
     MatCardModule,
-    CommonModule
+    CommonModule,
+    MatStepperModule
   ],
   templateUrl: './edit-assignment.component.html',
   styleUrls: ['./edit-assignment.component.css'],
 })
 export class EditAssignmentComponent implements OnInit {
-  assignment?: Assignment;
-  auteurs: any[] = [];
-  matieres: any[] = [];
+  @ViewChild('stepper') stepper!: MatStepper;
 
-  // Pour les champs de formulaire
-  nomAssignment = '';
-  dateDeRendu?: Date = undefined;
-  selectedAuteurId?: string;
-  selectedMatiereId?: string;
-  note!: number;
-  remarques = '';
+  assignment?: Assignment;
+  editForm!: FormGroup;
 
   constructor(
+    private formBuilder: FormBuilder,
     private assignmentsService: AssignmentsService,
     private router: Router,
     private route: ActivatedRoute,
-    private auteurService: AuteurService,
-    private matiereService: MatiereService,
     private snackBar: MatSnackBar
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.editForm = this.formBuilder.group({
+      step1: this.formBuilder.group({
+        nomAssignment: ['', Validators.required],
+        dateDeRendu: ['', Validators.required]
+      }),
+      step2: this.formBuilder.group({
+        note: ['', [Validators.min(0), Validators.max(20)]],
+        remarques: ['']
+      })
+    });
+
     const id = this.route.snapshot.params['id'];
     this.assignmentsService.getAssignment(id).subscribe((assignment) => {
       this.assignment = assignment;
-      if (assignment !== undefined) {
-        this.nomAssignment = assignment.nom;
-        this.dateDeRendu = assignment.dateDeRendu;
-        this.note = assignment.note;
-        this.remarques = assignment.remarques;
+      if (assignment) {
+        this.editForm.get('step1')?.patchValue({
+          nomAssignment: assignment.nom,
+          dateDeRendu: assignment.dateDeRendu
+        });
+        this.editForm.get('step2')?.patchValue({
+          note: assignment.note,
+          remarques: assignment.remarques
+        });
       }
     });
   }
 
-  onSaveAssignment() {
+  onSaveAndSubmit(): void {
     if (!this.assignment) return;
-    if (this.nomAssignment === '' || this.dateDeRendu === undefined) return;
 
-    this.assignment.nom = this.nomAssignment;
-    this.assignment.dateDeRendu = this.dateDeRendu;
-    this.assignment.note = this.note;
-    this.assignment.remarques = this.remarques;
-    console.log(this.assignment.note);
-    console.log(this.assignment.remarques);
+    if (!this.editForm.valid) {
+      this.snackBar.open('Veuillez remplir toutes les étapes du formulaire.', 'Fermer', {
+        duration: 3000,
+        verticalPosition: 'top',
+        horizontalPosition: 'end'
+      });
+      return;
+    }
+
+    const formValues = this.editForm.value;
+    this.assignment.nom = formValues.step1.nomAssignment;
+    this.assignment.dateDeRendu = formValues.step1.dateDeRendu;
+    this.assignment.note = formValues.step2.note;
+    this.assignment.remarques = formValues.step2.remarques;
+
     this.assignmentsService.updateAssignment(this.assignment).subscribe({
-      next: (message) => {
+      next: () => {
         this.snackBar.open('Assignment updated successfully!', 'Close', {
           duration: 3000,
           verticalPosition: 'top',
@@ -86,7 +101,7 @@ export class EditAssignmentComponent implements OnInit {
         });
         this.router.navigate(['/home']);
       },
-      error: (error) => {
+      error: () => {
         this.snackBar.open('Failed to update assignment. Please try again.', 'Close', {
           duration: 3000,
           verticalPosition: 'top',
@@ -94,5 +109,17 @@ export class EditAssignmentComponent implements OnInit {
         });
       }
     });
+  }
+
+  onNextClick(): void {
+    if (this.editForm.get('step1')?.valid) {
+      this.stepper.next();
+    } else {
+      this.snackBar.open('Veuillez remplir correctement cette étape avant de passer à la suivante.', 'Fermer', {
+        duration: 3000,
+        verticalPosition: 'top',
+        horizontalPosition: 'end'
+      });
+    }
   }
 }

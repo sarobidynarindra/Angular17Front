@@ -1,39 +1,53 @@
-<div *ngIf="assignment" class="container" fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="20px">
+<div *ngIf="assignment" class="container">
   <mat-card class="box">
     <mat-card-header>
-      <mat-card-title>Edition de l'assignment {{assignment.nom}}</mat-card-title>
+      <mat-card-title>Édition de l'assignment {{assignment.nom}}</mat-card-title>
     </mat-card-header>
-    <form (ngSubmit)="onSaveAssignment()" #formupdate="ngForm" class="form">
+    <form [formGroup]="editForm">
       <mat-card-content>
-        <mat-form-field class="example-full-width">
-          <input matInput placeholder="Edition du nom" [(ngModel)]="nomAssignment" name="assignment-name" required>
-        </mat-form-field>
-        <mat-form-field class="example-full-width">
-          <input matInput [matDatepicker]="picker" placeholder="Edition de la date" [(ngModel)]="dateDeRendu"
-            name="date" required>
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-        <mat-form-field class="example-full-width">
-          <input matInput placeholder="Nom de l'auteur" [(ngModel)]="assignment.auteurs.nom" name="auteur-name"
-            disabled>
-        </mat-form-field>
-        <mat-form-field class="example-full-width">
-          <input matInput placeholder="Nom du professeur" [(ngModel)]="assignment.matieres.nomProf" name="prof-name"
-            disabled>
-        </mat-form-field>
-        <mat-form-field class="example-full-width">
-          <input matInput placeholder="Note" [(ngModel)]="note" name="note" type="number" min="0" max="20">
-        </mat-form-field>
-        <mat-form-field class="example-full-width">
-          <textarea matInput placeholder="Remarques" [(ngModel)]="remarques" name="remarques"></textarea>
-        </mat-form-field>
+        <mat-horizontal-stepper linear #stepper>
+          <!-- Étape 1-->
+          <mat-step>
+            <ng-template matStepLabel>Informations Générales</ng-template>
+            <div formGroupName="step1">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Édition du nom" formControlName="nomAssignment" required>
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <input matInput [matDatepicker]="picker" placeholder="Édition de la date" formControlName="dateDeRendu" required>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div>
+              <button mat-button (click)="onNextClick()" [disabled]="!editForm.get('step1')?.valid">SUIVANT</button>
+            </div>
+          </mat-step>
+
+          <!-- Étape 2 -->
+          <mat-step>
+            <ng-template matStepLabel>Autres Informations</ng-template>
+            <div formGroupName="step2">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Nom de l'auteur" [value]="assignment.auteurs.nom" name="auteur-name" disabled>
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Nom du professeur" [value]="assignment.matieres.nomProf" name="prof-name" disabled>
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Note" formControlName="note" type="number" min="0" max="20">
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <textarea matInput placeholder="Remarques" formControlName="remarques"></textarea>
+              </mat-form-field>
+            </div>
+            <div>
+              <button mat-button matStepperPrevious>PRÉCÉDENT</button>
+              <button mat-flat-button color="primary" (click)="onSaveAndSubmit()" [disabled]="!editForm.get('step2')?.valid">SAUVER</button>
+            </div>
+          </mat-step>
+        </mat-horizontal-stepper>
       </mat-card-content>
-      <mat-card-actions>
-        <button mat-flat-button color="primary" class="btn-block" type="submit" [disabled]="!formupdate.form.valid">
-          Sauver
-        </button>
-      </mat-card-actions>
     </form>
   </mat-card>
 </div>
