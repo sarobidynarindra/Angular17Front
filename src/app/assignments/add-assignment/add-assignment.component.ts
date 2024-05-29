@@ -1,21 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
-
-
+import { MatStepperModule } from '@angular/material/stepper';
 import { Assignment } from '../assignment.model';
 import { AssignmentsService } from '../../shared/assignments.service';
 import { Router } from '@angular/router';
 import { AuteurService } from '../../shared/auteur.service';
 import { MatiereService } from '../../shared/matiere.service';
 import { MatSelectModule } from '@angular/material/select';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms'; // Ajoutez ceci
 
 @Component({
   selector: 'app-add-assignment',
@@ -23,34 +23,51 @@ import { CommonModule } from '@angular/common';
   providers: [provideNativeDateAdapter()],
   imports: [
     FormsModule,
+    ReactiveFormsModule, // Ajoutez ceci
     MatInputModule,
     MatFormFieldModule,
     MatDatepickerModule,
     MatButtonModule,
     MatSelectModule,
     MatCardModule,
-    CommonModule
+    CommonModule,
+    MatStepperModule
   ],
   templateUrl: './add-assignment.component.html',
-  styleUrl: './add-assignment.component.css',
+  styleUrls: ['./add-assignment.component.css'], // Correction du nom (styleUrl -> styleUrls)
 })
-export class AddAssignmentComponent {
-  // champs du formulaire
-  nomAssignment = '';
-  dateDeRendu = undefined;
+export class AddAssignmentComponent implements OnInit {
+  firstFormGroup!: FormGroup;
+  secondFormGroup!: FormGroup;
+  thirdFormGroup!: FormGroup;
+  fourthFormGroup!: FormGroup;
+
   auteurs: any[] = [];
   matieres: any[] = [];
-  auteurSelectionne!: string;
-  matiereSelectionnee!: string;
 
   constructor(
+    private _formBuilder: FormBuilder,
     private assignmentsService: AssignmentsService,
     private router: Router,
     private auteurService: AuteurService,
     private matiereService: MatiereService,
-    private snackBar: MatSnackBar,
+    private snackBar: MatSnackBar
   ) { }
+
   ngOnInit() {
+    this.firstFormGroup = this._formBuilder.group({
+      nomAssignment: ['', Validators.required]
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      dateDeRendu: ['', Validators.required]
+    });
+    this.thirdFormGroup = this._formBuilder.group({
+      auteurSelectionne: ['', Validators.required]
+    });
+    this.fourthFormGroup = this._formBuilder.group({
+      matiereSelectionnee: ['', Validators.required]
+    });
+
     this.getAllAuteurs();
     this.getMatieres();
   }
@@ -86,15 +103,16 @@ export class AddAssignmentComponent {
       }
     );
   }
-  onSubmit(event: any) {
-    if ((this.nomAssignment == '') || (this.dateDeRendu === undefined)) return;
 
-    let nouvelAssignment = new Assignment();
-    nouvelAssignment.nom = this.nomAssignment;
-    nouvelAssignment.dateDeRendu = this.dateDeRendu;
+  onSubmit() {
+    if (this.firstFormGroup.invalid || this.secondFormGroup.invalid || this.thirdFormGroup.invalid || this.fourthFormGroup.invalid) return;
+
+    const nouvelAssignment = new Assignment();
+    nouvelAssignment.nom = this.firstFormGroup.get('nomAssignment')?.value;
+    nouvelAssignment.dateDeRendu = this.secondFormGroup.get('dateDeRendu')?.value;
     nouvelAssignment.rendu = false;
-    nouvelAssignment.auteur = this.auteurSelectionne;
-    nouvelAssignment.matiere = this.matiereSelectionnee;
+    nouvelAssignment.auteur = this.thirdFormGroup.get('auteurSelectionne')?.value;
+    nouvelAssignment.matiere = this.fourthFormGroup.get('matiereSelectionnee')?.value;
 
     this.assignmentsService.addAssignment(nouvelAssignment).subscribe(
       (reponse) => {
