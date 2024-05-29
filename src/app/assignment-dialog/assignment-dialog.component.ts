@@ -22,7 +22,8 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class AssignmentDialogComponent {
   form: FormGroup;
-
+  
+  
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<AssignmentDialogComponent>,
@@ -42,5 +43,10 @@ export class AssignmentDialogComponent {
       remarques: this.form.value.remarques
     };
     this.dialogRef.close(updatedAssignment); // Close the dialog with the updated assignment data
+  }
+  
+  onCancel(): void {
+    this.dialogRef.close();
+    window.location.reload();
   }
 }
