@@ -27,8 +27,7 @@
 
 .box {
     max-width: 50%;
-    ;
-    width: 40%;
+    width: 35%;
     max-height: 80vh;
 }
 
@@ -58,7 +57,7 @@ mat-card-title {
     font-size: 24px;
     font-weight: bold;
     text-align: center;
-    margin-left: 300px;
+    margin-left: 210px;
     margin-top: 15px;
 }
 
