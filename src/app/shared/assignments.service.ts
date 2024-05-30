@@ -21,6 +21,7 @@ export class AssignmentsService {
   uri = 'https://angular17back.onrender.com/api/assignments';
   //uri = "https://angularmbdsmadagascar2024.onrender.com/api/assignments";
   uri1 = 'https://angular17back.onrender.com/api/assignments/updateAssignmentNoteRemarque';
+  uri2 = 'https://angular17back.onrender.com/api/assignments/postAssignmentDB';
 
   // retourne tous les assignments
   getAssignments(): Observable<Assignment[]> {
@@ -71,6 +72,12 @@ export class AssignmentsService {
     //return of("Assignment ajouté avec succès");
     return this.http.post<Assignment>(this.uri, assignment);
   }
+  addAssignmentDB(assignment: Assignment): Observable<any> {
+    //this.assignments.push(assignment);
+    this.logService.log(assignment.nom, "ajouté dans le db ");
+    //return of("Assignment ajouté avec succès");
+    return this.http.post<Assignment>(this.uri2, assignment);
+  }
 
   updateAssignment(assignment: Assignment): Observable<any> {
     // l'assignment passé en paramètre est le même objet que dans le tableau
@@ -115,7 +122,7 @@ export class AssignmentsService {
       nouvelAssignment.note = a.note ?? 0;
       nouvelAssignment.remarques = a.remarques ?? " ";
 
-      this.addAssignment(nouvelAssignment)
+      this.addAssignmentDB(nouvelAssignment)
         .subscribe(() => {
           console.log("Assignment " + a.nom + " ajouté");
         });
@@ -135,7 +142,7 @@ export class AssignmentsService {
       nouvelAssignment.note = a.note ?? 0;
       nouvelAssignment.remarques = a.remarques ?? " ";
 
-      appelsVersAddAssignment.push(this.addAssignment(nouvelAssignment))
+      appelsVersAddAssignment.push(this.addAssignmentDB(nouvelAssignment))
     });
 
     return forkJoin(appelsVersAddAssignment);
