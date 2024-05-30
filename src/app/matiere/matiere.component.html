@@ -30,7 +30,7 @@
     <!-- Table Section -->
     <mat-card class="box card-container" fxFlex="55%">
         <mat-card-header fxLayoutAlign="center center">
-            <mat-card-title>Liste des matières</mat-card-title>
+            <mat-card-title class="titre">Liste des matières</mat-card-title>
         </mat-card-header>
         <br>
         <br>
@@ -78,9 +78,11 @@
 
                 <!-- Pagination -->
                 <div class="pagination-buttons">
-                    <button mat-button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+                    <button mat-raised-button color="primary" (click)="previousPage()" [disabled]="currentPage === 1">
+                        Précédente </button>
                     <span>Page {{currentPage}} of {{totalPages}}</span>
-                    <button mat-button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+                    <button mat-raised-button color="primary" (click)="nextPage()"
+                        [disabled]="currentPage === totalPages"> Suivante </button>
                 </div>
             </ng-container>
             <ng-template #noMatieres>

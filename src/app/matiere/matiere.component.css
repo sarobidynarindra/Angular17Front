@@ -96,21 +96,24 @@ mat-card-title {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
-  }
+    margin-top: 25px;
+}
 
-  .card-container {
+.card-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-  }
-  
-  .full-width-table {
+}
+
+.full-width-table {
     width: 100%;
-  }
-  
-  .delete-button {
+}
+
+.delete-button {
     color: red;
-  }
-  
+}
+
+.titre {
+    margin-left: 10px;
+}
