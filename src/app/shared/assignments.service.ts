@@ -112,8 +112,8 @@ export class AssignmentsService {
       nouvelAssignment.rendu = a.rendu;
       nouvelAssignment.auteur = a.auteur;
       nouvelAssignment.matiere = a.matiere;
-      nouvelAssignment.note = a.note as number;
-      nouvelAssignment.remarques = a.remarques as string;
+      nouvelAssignment.note = a.note ?? 0;
+      nouvelAssignment.remarques = a.remarques ?? " ";
 
       this.addAssignment(nouvelAssignment)
         .subscribe(() => {
@@ -132,8 +132,8 @@ export class AssignmentsService {
       nouvelAssignment.rendu = a.rendu;
       nouvelAssignment.auteur = a.auteur;
       nouvelAssignment.matiere = a.matiere;
-      nouvelAssignment.note = a.note as number;
-      nouvelAssignment.remarques = a.remarques as string;
+      nouvelAssignment.note = a.note ?? 0;
+      nouvelAssignment.remarques = a.remarques ?? " ";
 
       appelsVersAddAssignment.push(this.addAssignment(nouvelAssignment))
     });
