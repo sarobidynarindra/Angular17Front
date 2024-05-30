@@ -25,12 +25,10 @@ export class MatiereService {
       );
   }
 
-  getAllMatieres(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/getAllMatiere`)
-      .pipe(
-        catchError(this.handleError)
-      );
+  getAllMatieres(page: number = 1): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/getAllMatieres?page=${page}`);
   }
+
   deleteMatiere(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/deleteMatiere/${id}`)
       .pipe(

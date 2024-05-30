@@ -36,6 +36,8 @@ export class MatiereComponent implements OnInit {
   loading: boolean = false;
   matieres: any[] = [];
   displayedColumns: string[] = ['nom', 'image', 'nomProf', 'imageProf', 'actions'];
+  currentPage: number = 1;
+  totalPages: number = 1;
 
   constructor(
     private matiereService: MatiereService,
@@ -44,7 +46,7 @@ export class MatiereComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getMatieres();
+    this.getMatieres(this.currentPage);
   }
 
   onFileSelected(event: any, type: string) {
@@ -58,8 +60,8 @@ export class MatiereComponent implements OnInit {
   createMatiere() {
     this.loading = true;
     this.matiereService.createMatiere(this.nom, this.selectedImage, this.nomProf, this.selectedImageProf).subscribe(
-      (response: any) => {
-        this.getMatieres(); // Refresh the list after creation
+      () => {
+        this.getMatieres(this.currentPage); // Refresh the list after creation
         this.loading = false;
         this.snackBar.open('Matière créée avec succès.', 'Fermer', {
           duration: 3000,
@@ -81,8 +83,8 @@ export class MatiereComponent implements OnInit {
 
   deleteMatiere(id: string) {
     this.matiereService.deleteMatiere(id).subscribe(
-      (response: any) => {
-        this.getMatieres(); // Refresh the list after deletion
+      () => {
+        this.getMatieres(this.currentPage); // Refresh the list after deletion
         this.snackBar.open('Matière supprimée avec succès.', 'Fermer', {
           duration: 3000,
           verticalPosition: 'top',
@@ -100,10 +102,12 @@ export class MatiereComponent implements OnInit {
     );
   }
 
-  getMatieres() {
-    this.matiereService.getAllMatieres().subscribe(
+  getMatieres(page: number) {
+    this.matiereService.getAllMatieres(page).subscribe(
       (response: any) => {
         this.matieres = response.docs;
+        this.currentPage = response.page;
+        this.totalPages = response.totalPages;
       },
       (error: any) => {
         console.error('Erreur lors de la récupération des matières : ', error);
@@ -114,5 +118,19 @@ export class MatiereComponent implements OnInit {
         });
       }
     );
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.getMatieres(this.currentPage);
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.getMatieres(this.currentPage);
+    }
   }
 }
