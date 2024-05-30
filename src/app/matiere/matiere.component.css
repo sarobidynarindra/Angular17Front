@@ -91,3 +91,26 @@ mat-card-title {
     font-size: 16px;
     color: gray;
 }
+
+.pagination-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+
+  .card-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .full-width-table {
+    width: 100%;
+  }
+  
+  .delete-button {
+    color: red;
+  }
+  
