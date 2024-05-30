@@ -56,6 +56,14 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+
+    <div class="pagination-buttons">
+        <button mat-raised-button color="primary" (click)="previousPage()" [disabled]="currentPage === 1">
+            Précédente </button>
+        <span> Page {{currentPage}} of {{totalPages}} </span>
+        <button mat-raised-button color="primary" (click)="nextPage()"
+            [disabled]="currentPage === totalPages"> Suivante </button>
+    </div>
 </ng-container>
 <ng-template #noAuteurs>
     <p class="no-auteurs-message">Pas encore d'auteur insérée.</p>

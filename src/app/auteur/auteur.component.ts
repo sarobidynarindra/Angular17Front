@@ -28,7 +28,9 @@ export class AuteurComponent {
   loading: boolean = false; // Variable to track loading state
   auteurs: any[] = [];
   displayedColumns: string[] = ['nom', 'photo','actions'];
- 
+  currentPage: number = 1;
+  totalPages: number = 1;
+
   constructor(
     private auteurService: AuteurService,
     private snackBar: MatSnackBar,
@@ -36,7 +38,7 @@ export class AuteurComponent {
   ) { }
 
   ngOnInit(): void {
-    this.AllAuteurs();
+    this.AllAuteurs(this.currentPage);
   }
 
   onFileSelected(event: any) {
@@ -60,7 +62,7 @@ export class AuteurComponent {
 
         snackBarRef.afterDismissed().subscribe(() => {
           this.router.navigate(['/auteur']);
-          this.AllAuteurs(); 
+          this.AllAuteurs(this.currentPage); 
           this.loading = false; // Set loading to false when operation is completed
         });
       },
@@ -76,10 +78,12 @@ export class AuteurComponent {
     );
   }
 
-  AllAuteurs() {
-    this.auteurService.getAllAuteurs().subscribe(
+  AllAuteurs(page: number) {
+    this.auteurService.getAllAuteursPagine(page).subscribe(
       (response: any) => {
         this.auteurs = response.docs;
+        this.currentPage = response.page;
+        this.totalPages = response.totalPages;
       },
       (error: any) => {
         console.error('Erreur lors de la récupération des auteurs : ', error);
@@ -95,7 +99,7 @@ export class AuteurComponent {
   deleteAuteurs(id: string) {
     this.auteurService.deleteAuteur(id).subscribe(
       (response: any) => {
-        this.AllAuteurs(); 
+        this.AllAuteurs(this.currentPage); 
         this.snackBar.open('Auteur supprimée avec succès.', 'Fermer', {
           duration: 3000,
           verticalPosition: 'top',
@@ -111,5 +115,18 @@ export class AuteurComponent {
         });
       }
     );
+  }
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.AllAuteurs(this.currentPage);
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.AllAuteurs(this.currentPage);
+    }
   }
 }

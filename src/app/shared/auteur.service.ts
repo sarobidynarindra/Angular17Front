@@ -9,7 +9,8 @@ import { catchError } from 'rxjs/operators';
 export class AuteurService {
   
 
-  private apiUrl = 'https://angular17back.onrender.com/api/auteur';
+ private apiUrl = 'https://angular17back.onrender.com/api/auteur';
+ 
 
   constructor(private http: HttpClient) { }
 
@@ -25,6 +26,12 @@ export class AuteurService {
   }
   getAllAuteurs(): Observable<any> {
     return this.http.get(`${this.apiUrl}/getAllAuteur`)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+  getAllAuteursPagine(page: number = 1): Observable<any> {
+    return this.http.get(`${this.apiUrl}/getAllAuteurPagine?page=${page}`)
       .pipe(
         catchError(this.handleError)
       );
