@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse,HttpParams  } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-
+import { Auteur } from '../auteur/auteur.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,7 +10,6 @@ export class AuteurService {
   
 
  private apiUrl = 'https://angular17back.onrender.com/api/auteur';
- 
 
   constructor(private http: HttpClient) { }
 
@@ -24,12 +23,10 @@ export class AuteurService {
         catchError(this.handleError)
       );
   }
-  getAllAuteurs(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/getAllAuteur`)
-      .pipe(
-        catchError(this.handleError)
-      );
+  getAllAuteurs(): Observable<Auteur[]> {
+    return this.http.get<Auteur[]>(`${this.apiUrl}/getAllAuteur`);
   }
+
   getAllAuteursPagine(page: number = 1): Observable<any> {
     return this.http.get(`${this.apiUrl}/getAllAuteurPagine?page=${page}`)
       .pipe(

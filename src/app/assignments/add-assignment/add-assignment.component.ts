@@ -75,7 +75,7 @@ export class AddAssignmentComponent implements OnInit {
   getAllAuteurs() {
     this.auteurService.getAllAuteurs().subscribe(
       (response: any) => {
-        this.auteurs = response.docs;
+        this.auteurs = response;
       },
       (error: any) => {
         console.error('Erreur lors de la récupération des auteurs : ', error);
