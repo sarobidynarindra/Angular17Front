@@ -119,8 +119,8 @@ export class AssignmentsService {
       nouvelAssignment.rendu = a.rendu;
       nouvelAssignment.auteur = a.auteur;
       nouvelAssignment.matiere = a.matiere;
-      nouvelAssignment.note = a.note ?? 0;
-      nouvelAssignment.remarques = a.remarques ?? " ";
+      nouvelAssignment.note = a.note;
+      nouvelAssignment.remarques = a.remarques;
 
       this.addAssignmentDB(nouvelAssignment)
         .subscribe(() => {
@@ -139,8 +139,8 @@ export class AssignmentsService {
       nouvelAssignment.rendu = a.rendu;
       nouvelAssignment.auteur = a.auteur;
       nouvelAssignment.matiere = a.matiere;
-      nouvelAssignment.note = a.note ?? 0;
-      nouvelAssignment.remarques = a.remarques ?? " ";
+      nouvelAssignment.note = a.note;
+      nouvelAssignment.remarques = a.remarques;
 
       appelsVersAddAssignment.push(this.addAssignmentDB(nouvelAssignment))
     });
