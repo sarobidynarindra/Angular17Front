@@ -138,6 +138,7 @@ td {
   justify-content: center;
   align-items: center;
   margin-top: 10px;
+  gap: 10px;
 }
 
 .left,
@@ -163,6 +164,12 @@ td {
 
 .nonrendu {
   color: red;
+  font-family: cursive;
+  text-align: center;
+}
+
+.rendu {
+  color: green;
   font-family: cursive;
   text-align: center;
 }

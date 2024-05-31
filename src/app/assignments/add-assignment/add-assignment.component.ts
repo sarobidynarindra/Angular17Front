@@ -69,7 +69,7 @@ export class AddAssignmentComponent implements OnInit {
     });
 
     this.getAllAuteurs();
-    this.getMatieres();
+    this.getAllMatierewithoutPagination();
   }
 
   getAllAuteurs() {
@@ -88,7 +88,7 @@ export class AddAssignmentComponent implements OnInit {
     );
   }
 
-  getMatieres() {
+  getAllMatierewithoutPagination() {
     this.matiereService.getAllMatieres().subscribe(
       (response: any) => {
         this.matieres = response.docs;

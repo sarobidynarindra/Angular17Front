@@ -25,7 +25,9 @@
           </mat-card-header>
           <img mat-card-image class="imageMatiere" [src]="a.matieres.image" alt="Photo of a Shiba Inu">
           <mat-card-content>
-            <p class="nonrendu">{{ a.rendu ? a.rendu : a.nom + ' pas encore rendu !' }}</p>
+            <p [ngClass]="{'rendu': a.rendu, 'nonrendu': !a.rendu}">
+              {{ a.rendu ? a.nom + ' rendu' : a.nom + ' pas encore rendu !' }}
+            </p>
           </mat-card-content>
           <mat-card-actions>
             <button mat-flat-button color="primary" [routerLink]="['/assignment', a._id]">Voir détails</button>
@@ -69,7 +71,9 @@
           </mat-card-header>
           <img mat-card-image class="imageMatiere" [src]="ar.matieres.image" alt="Photo of a Shiba Inu">
           <mat-card-content>
-            <p class="nonrendu">{{ ar.rendu ? ar.rendu : ar.nom + ' pas encore rendu !' }}</p>
+            <p [ngClass]="{'rendu': ar.rendu, 'nonrendu': !ar.rendu}">
+              {{ ar.rendu ? ar.nom + ' rendu' : ar.nom + ' pas encore rendu !' }}
+            </p>
           </mat-card-content>
           <mat-card-actions>
             <button mat-flat-button color="primary" [routerLink]="['/assignment', ar._id]">Voir détails</button>
