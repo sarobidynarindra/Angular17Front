@@ -167,6 +167,12 @@ td {
   text-align: center;
 }
 
+.rendu {
+  color: green;
+  font-family: cursive;
+  text-align: center;
+}
+
 .title {
   text-align: center;
   font-family: cursive;
