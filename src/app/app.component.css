@@ -21,17 +21,49 @@
     flex: 1 1 auto;
   }
   
-.item a {
-    text-align: center;
-    color: white; /* Couleur du texte des liens */
-    text-decoration: none; /* Pas de soulignement sur les liens */
-    display: block; /* Les liens occupent toute la largeur */
-    padding: 10px; /* Espacement intérieur des liens */
+  .drawer .item {
+    color: white; /* Text color */
   }
   
-  .item a:hover {
-    background-color: #e0e0e0; /* Couleur de fond au survol */
+  
+  .drawer .item a[mat-list-item] {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    text-decoration: none;
+    transition: background-color 0.3s;
   }
+  
+.drawer .item a[mat-list-item] mat-icon {
+    margin-right: 10px; 
+    color: white; 
+    vertical-align: middle; 
+  }
+  
+  .drawer .item a[mat-list-item] span {
+    color: white; 
+    line-height: 1; 
+    vertical-align: middle; 
+  }
+  
+  
+  .drawer .item a[mat-list-item]:hover {
+    background-color: transparent; 
+  }
+  
+  
+  .drawer .item a[mat-list-item] mat-icon {
+    margin-right: 10px;
+    color: white; 
+  }
+  
+  /* Active link styles (optional) */
+  .drawer .item a[mat-list-item].active {
+    background-color: #555; 
+    font-weight: bold;
+  }
+  
+  
 .boutondeconnexion {
     margin-left: 20px;
 }

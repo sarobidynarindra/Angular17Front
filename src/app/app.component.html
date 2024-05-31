@@ -17,8 +17,14 @@
 <mat-drawer-container class="container" hasBackdrop="false">
   <mat-drawer #drawer class="drawer" mode="push">
     <mat-nav-list class="item" style="color: aliceblue;">
-      <a mat-list-item routerLink="/home">Acceuil</a>
-      <a mat-list-item routerLink="/login">Login</a>
+      <a mat-list-item routerLink="/home">
+        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon> 
+        <span>Accueil</span>
+      </a>
+      <a mat-list-item routerLink="/login">
+        <mat-icon aria-hidden="false" aria-label="Example login icon">login</mat-icon>
+        <span>Login</span>
+      </a>
     </mat-nav-list>
   </mat-drawer>
   <mat-drawer-content>
