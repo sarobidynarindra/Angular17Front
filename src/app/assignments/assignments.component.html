@@ -49,7 +49,7 @@
     <p class="details">
       Nb documents : {{ totalDocsRendu }}, nbPages : {{ totalPagesRendu }}
       <br />
-      Page courante : {{ page }}, nb de docs par page : {{ limit }}
+      Page courante : {{ pageRendu }}, nb de docs par page : {{ limit }}
       <mat-slider min="1" max="100" step="1" thumbLabel>
         <input matSliderThumb [(ngModel)]="limit" (change)="getAssignmentsFromServiceRenduTrue()" />
       </mat-slider>

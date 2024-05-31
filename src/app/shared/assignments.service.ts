@@ -22,7 +22,7 @@ export class AssignmentsService {
   //uri = "https://angularmbdsmadagascar2024.onrender.com/api/assignments";
   uri1 = 'https://angular17back.onrender.com/api/assignments/updateAssignmentNoteRemarque';
   uri2 = 'https://angular17back.onrender.com/api/assignments/postAssignmentDB';
-
+  
   // retourne tous les assignments
   getAssignments(): Observable<Assignment[]> {
     return this.http.get<Assignment[]>(this.uri);

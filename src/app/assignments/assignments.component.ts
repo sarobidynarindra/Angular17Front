@@ -47,6 +47,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class AssignmentsComponent implements OnInit {
   titre = 'Liste des assignments';
   page = 1;
+  pageRendu=1;
   limit = 3;
   totalDocs!: number;
   totalPages!: number;
@@ -123,7 +124,7 @@ export class AssignmentsComponent implements OnInit {
 
   getAssignmentsFromServiceRenduTrue() {
     this.assignmentsService
-      .getAssignmentAvecRenduTruePagine(this.page, this.limit)
+      .getAssignmentAvecRenduTruePagine(this.pageRendu, this.limit)
       .subscribe((data) => {
         console.log('Données arrivées');
         this.assignmentsRendu = data.docs;
@@ -154,27 +155,27 @@ export class AssignmentsComponent implements OnInit {
   }
 
   pagePrecedenteRendu() {
-    this.page = this.prevPageRendu;
+    this.pageRendu = this.prevPageRendu;
     this.getAssignmentsFromServiceRenduTrue();
   }
 
   pageSuivanteRendu() {
-    this.page = this.nextPageRendu;
+    this.pageRendu = this.nextPageRendu;
     this.getAssignmentsFromServiceRenduTrue();
   }
 
   premierePageRendu() {
-    this.page = 1;
+    this.pageRendu = 1;
     this.getAssignmentsFromServiceRenduTrue();
   }
 
   dernierePageRendu() {
-    this.page = this.totalPagesRendu;
+    this.pageRendu = this.totalPagesRendu;
     this.getAssignmentsFromServiceRenduTrue();
   }
 
   handlePageEventRendu(event: PageEvent) {
-    this.page = event.pageIndex + 1;
+    this.pageRendu = event.pageIndex + 1;
     this.limit = event.pageSize;
     this.getAssignmentsFromServiceRenduTrue();
   }
