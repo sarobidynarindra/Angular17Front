@@ -45,16 +45,26 @@ td {
 }
 
 .example-card {
-  max-width: 360px;
-  border-top-left-radius: 20px;
+  max-width: 298px;
+  border-top-left-radius: 10px;
   border-bottom-right-radius: 20px;
   margin-top: 10px;
   margin-bottom: 20px;
-  border-radius: 8px;
+  border-radius: 45px;
   display: flex;
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
   /* Transition douce pour l'effet de survol */
+}
+
+.mdc-card__actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: 52px;
+  padding: 22px;
+  margin-left: 71px;
 }
 
 .example-header-image-round {
@@ -97,13 +107,16 @@ td {
 
 .imageMatiere:hover {
   transform: scale(1.03);
+  height: 170px;
+  width: 100%;
+  object-fit: fill;
 }
 
 .cards-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 90px;
+  gap: 25px;
   /* Espace entre les cartes */
 }
 
@@ -112,18 +125,23 @@ td {
   /* 4 cartes par ligne */
   box-sizing: border-box;
 }
-.imageMatiere{
-  width: 100%; /* Définissez la largeur désirée */
+
+.imageMatiere {
+  width: 100%;
+  /* Définissez la largeur désirée */
   height: 300px;
   object-fit: cover;
 }
-.pagination{
+
+.pagination {
   display: flex;
-  justify-content: center; 
-  align-items: center; 
+  justify-content: center;
+  align-items: center;
   margin-top: 10px;
 }
-.left, .right {
+
+.left,
+.right {
   width: 50%;
   height: 100%;
   float: left;
@@ -141,4 +159,9 @@ td {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
+}
+
+.p {
+  color: red;
+  font-family: cursive;
 }

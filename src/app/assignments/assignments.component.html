@@ -69,7 +69,7 @@
       </mat-card-header>
       <img mat-card-image class="imageMatiere" [src]="ar.matieres.image" alt="Photo of a Shiba Inu">
       <mat-card-content>
-        <p>{{ ar.rendu ? ar.rendu : ar.nom + ' NON RENDU !!!!' }}</p>
+        <p class="p">{{ ar.rendu ? ar.rendu : ar.nom + ' NON RENDU !!!!' }}</p>
       </mat-card-content>
       <mat-card-actions>
         <button mat-flat-button color="primary" [routerLink]="['/assignment', ar._id]">Voir détails</button>
