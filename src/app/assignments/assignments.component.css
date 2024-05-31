@@ -161,7 +161,8 @@ td {
   gap: 16px;
 }
 
-.p {
+.nonrendu {
   color: red;
   font-family: cursive;
+  text-align: center;
 }

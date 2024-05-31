@@ -25,7 +25,7 @@
           </mat-card-header>
           <img mat-card-image class="imageMatiere" [src]="a.matieres.image" alt="Photo of a Shiba Inu">
           <mat-card-content>
-            <p>{{ a.rendu ? a.rendu : a.nom + ' NON RENDU !!!!' }}</p>
+            <p class="nonrendu">{{ a.rendu ? a.rendu : a.nom + ' pas encore rendu !!!!' }}</p>
           </mat-card-content>
           <mat-card-actions>
             <button mat-flat-button color="primary" [routerLink]="['/assignment', a._id]">Voir détails</button>
@@ -58,35 +58,35 @@
         <mat-card class="example-card">
           <mat-card-header>
             <div mat-card-avatar class=" example-header-image-round">
-          <img [src]="ar.auteurs.photo" alt="Nom de l'image">
-      </div>
-      <mat-card-title>{{ ar.nom }}</mat-card-title>
-      <mat-card-subtitle>{{ ar.dateDeRendu | date }}</mat-card-subtitle>
-      <div class="example-header-image-round-right">
-        <img [src]="ar.matieres.imageProf" alt="Nom de l'image">
-      </div>
+              <img [src]="ar.auteurs.photo" alt="Nom de l'image">
+            </div>
+            <mat-card-title>{{ ar.nom }}</mat-card-title>
+            <mat-card-subtitle>{{ ar.dateDeRendu | date }}</mat-card-subtitle>
+            <div class="example-header-image-round-right">
+              <img [src]="ar.matieres.imageProf" alt="Nom de l'image">
+            </div>
 
-      </mat-card-header>
-      <img mat-card-image class="imageMatiere" [src]="ar.matieres.image" alt="Photo of a Shiba Inu">
-      <mat-card-content>
-        <p class="p">{{ ar.rendu ? ar.rendu : ar.nom + ' NON RENDU !!!!' }}</p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-flat-button color="primary" [routerLink]="['/assignment', ar._id]">Voir détails</button>
-      </mat-card-actions>
-      </mat-card>
+          </mat-card-header>
+          <img mat-card-image class="imageMatiere" [src]="ar.matieres.image" alt="Photo of a Shiba Inu">
+          <mat-card-content>
+            <p class="nonrendu">{{ ar.rendu ? ar.rendu : ar.nom + ' pas encore rendu !' }}</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-flat-button color="primary" [routerLink]="['/assignment', ar._id]">Voir détails</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+
+    <div class="pagination">
+      <button mat-raised-button color="primary" [disabled]="!hasPrevPageRendu"
+        (click)="premierePageRendu()">Première</button>
+      <button mat-raised-button color="primary" [disabled]="!hasPrevPageRendu"
+        (click)="pagePrecedenteRendu()">Précédent</button>
+      <button mat-raised-button color="primary" [disabled]="!hasNextPageRendu"
+        (click)="pageSuivanteRendu()">Suivante</button>
+      <button mat-raised-button color="primary" [disabled]="!hasNextPageRendu"
+        (click)="dernierePageRendu()">Dernière</button>
     </div>
   </div>
-
-  <div class="pagination">
-    <button mat-raised-button color="primary" [disabled]="!hasPrevPageRendu"
-      (click)="premierePageRendu()">Première</button>
-    <button mat-raised-button color="primary" [disabled]="!hasPrevPageRendu"
-      (click)="pagePrecedenteRendu()">Précédent</button>
-    <button mat-raised-button color="primary" [disabled]="!hasNextPageRendu"
-      (click)="pageSuivanteRendu()">Suivante</button>
-    <button mat-raised-button color="primary" [disabled]="!hasNextPageRendu"
-      (click)="dernierePageRendu()">Dernière</button>
-  </div>
-</div>
 </div>
