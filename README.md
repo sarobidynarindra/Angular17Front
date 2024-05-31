@@ -11,15 +11,18 @@ Projet front-end pour les étudiants du **Master MIAGE MBDS** de Madagascar
 Pour que le projet fonctionne sur votre machine, suivez ces étapes :
 - Clonez ce repository sur votre machine 
 - lancer ces commandes dans un terminal autre que powershell:
-	- npm install
-	- ng serve
+    - **En angular :**
+	    - npm install
+	    - ng serve
+    - **En node js :**
+        - npm install
+	    - npm run start
 
-
-Données de Test pour le login admin:
- 	email: admin@gmail.com
- 	motdepasse: admin
-	
-
+## Données de Test pour le login admin :
+- email: admin@gmail.com 
+- motdepasse: admin
+ 	
+ 	
 ## Voici les fonctionnalités que nous avons implémentées sur notre site :
 
 - 🌟 Ajout du Toolbar et du Sidenav dans toutes les pages
