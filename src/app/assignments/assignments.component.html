@@ -1,7 +1,7 @@
 <div class="container">
   <div class="left">
-    <h2>Listes des assignments non rendus</h2>
-    <p>
+    <h2 class="title">Listes des assignments non rendus</h2>
+    <p class="details">
       Nb documents : {{ totalDocs }}, nbPages : {{ totalPages }}
       <br />
       Page courante : {{ page }}, nb de docs par page : {{ limit }}
@@ -25,7 +25,7 @@
           </mat-card-header>
           <img mat-card-image class="imageMatiere" [src]="a.matieres.image" alt="Photo of a Shiba Inu">
           <mat-card-content>
-            <p class="nonrendu">{{ a.rendu ? a.rendu : a.nom + ' pas encore rendu !!!!' }}</p>
+            <p class="nonrendu">{{ a.rendu ? a.rendu : a.nom + ' pas encore rendu !' }}</p>
           </mat-card-content>
           <mat-card-actions>
             <button mat-flat-button color="primary" [routerLink]="['/assignment', a._id]">Voir détails</button>
@@ -43,8 +43,8 @@
   </div>
 
   <div class="right">
-    <h2>Listes des assignments rendus</h2>
-    <p>
+    <h2 class="title">Listes des assignments rendus</h2>
+    <p class="details">
       Nb documents : {{ totalDocsRendu }}, nbPages : {{ totalPagesRendu }}
       <br />
       Page courante : {{ page }}, nb de docs par page : {{ limit }}

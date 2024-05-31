@@ -166,3 +166,12 @@ td {
   font-family: cursive;
   text-align: center;
 }
+
+.title {
+  text-align: center;
+  font-family: cursive;
+}
+
+.details {
+  text-align: center;
+}
